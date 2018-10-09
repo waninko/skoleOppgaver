@@ -5,3 +5,10 @@ C:\Users\Bird\source\repos\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\Til
 C:\Users\Bird\source\repos\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.csproj.CoreCompileInputs.cache
 C:\Users\Bird\source\repos\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.exe
 C:\Users\Bird\source\repos\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.pdb
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\bin\Debug\TilfeldigeFirkanter.exe.config
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\bin\Debug\TilfeldigeFirkanter.exe
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\bin\Debug\TilfeldigeFirkanter.pdb
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.csprojAssemblyReference.cache
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.csproj.CoreCompileInputs.cache
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.exe
+C:\Users\GET Academy\Documents\GitHub\skoleOppgaver\TilfeldigeFirkanter\TilfeldigeFirkanter\obj\Debug\TilfeldigeFirkanter.pdb

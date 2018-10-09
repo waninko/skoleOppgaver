@@ -12,7 +12,7 @@ namespace TilfeldigeFirkanter
         public int Y { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
-        private int _minimumSize = 3;
+        private int _minimumSize = 5;
 
         public Box(Random random, int maxX, int maxY)
         {

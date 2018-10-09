@@ -30,7 +30,7 @@ namespace TilfeldigeFirkanter
         private static Box[] CreateBoxes()
         {
             var random = new Random();
-            var boxes = new Box[3];
+            var boxes = new Box[7];
             for (var i = 0; i < boxes.Length; i++)
             {
                 boxes[i] = new Box(random, _width, _height);
