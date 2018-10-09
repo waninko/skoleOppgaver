@@ -1,0 +1,7 @@
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\bin\Debug\FlaskeOppgave.exe.config
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\bin\Debug\FlaskeOppgave.exe
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\bin\Debug\FlaskeOppgave.pdb
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\obj\Debug\FlaskeOppgave.csprojAssemblyReference.cache
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\obj\Debug\FlaskeOppgave.csproj.CoreCompileInputs.cache
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\obj\Debug\FlaskeOppgave.exe
+C:\Users\GET Academy\source\repos\FlaskeOppgave\FlaskeOppgave\obj\Debug\FlaskeOppgave.pdb
