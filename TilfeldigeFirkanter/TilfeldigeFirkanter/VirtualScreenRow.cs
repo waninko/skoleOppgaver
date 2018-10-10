@@ -10,7 +10,7 @@ namespace TilfeldigeFirkanter
     {
         private ScreenCell[] _cells;
 
-        public VirtualScreenRow(int width)
+        public VirtualScreenRow(int width)  
         {
             _cells = new ScreenCell[width];
             for (var i = 0; i < _cells.Length; i++)
@@ -25,9 +25,10 @@ namespace TilfeldigeFirkanter
             var endX = startX + width;
             _cells[startX].AddUpperLeftCorner();
             _cells[endX].AddUpperRightCorner();
-            for (var colId = startX + 1; colId < endX; colId++)
+
+            for (var i = startX + 1; i < endX; i++)
             {
-                _cells[colId].AddHorizontal();
+                _cells[i].AddHorizontal();
             }
         }
 
@@ -37,9 +38,9 @@ namespace TilfeldigeFirkanter
             var endX = startX + width;
             _cells[startX].AddLowerLeftCorner();
             _cells[endX].AddLowerRightCorner();
-            for (var colId = startX + 1; colId < endX; colId++)
+            for (var i = startX + 1; i < endX; i++)
             {
-                _cells[colId].AddHorizontal();
+                _cells[i].AddHorizontal();
             }
         }
 

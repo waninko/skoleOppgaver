@@ -8,7 +8,7 @@ namespace TilfeldigeFirkanter
 {
     class Program
     {
-        private static int _width = 40;
+        private static int _width = 20;
         private static int _height = 20;
 
         static void Main(string[] args)
@@ -30,7 +30,7 @@ namespace TilfeldigeFirkanter
         private static Box[] CreateBoxes()
         {
             var random = new Random();
-            var boxes = new Box[7];
+            var boxes = new Box[3];
             for (var i = 0; i < boxes.Length; i++)
             {
                 boxes[i] = new Box(random, _width, _height);
@@ -48,7 +48,7 @@ namespace TilfeldigeFirkanter
                 screen.Add(box);
             }
                 screen.Show();
-            //Console.WriteLine(cell.GetCharacter());
+            //Console.WriteLine(.GetCharacter());
         }
     }
 }
