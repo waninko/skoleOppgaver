@@ -1,0 +1,8 @@
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\bin\Debug\startlist.csv
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\bin\Debug\List_LINQ.exe.config
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\bin\Debug\List_LINQ.exe
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\bin\Debug\List_LINQ.pdb
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\obj\Debug\List_LINQ.csprojAssemblyReference.cache
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\obj\Debug\List_LINQ.csproj.CoreCompileInputs.cache
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\obj\Debug\List_LINQ.exe
+C:\Users\Bird\source\repos\List_LINQ\List_LINQ\obj\Debug\List_LINQ.pdb
