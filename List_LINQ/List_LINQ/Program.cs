@@ -36,7 +36,7 @@ namespace List_LINQ
             }
 
             Console.WriteLine("Klubber: ");
-            for (int i = 1; i < regPattern.Clubs.Count; i++)
+            for (int i = 1; i < regPattern.Clubs.Count; i++)// begynner på 1 istedenfor 0, fordi index 0 ikke har klubbnavn i seg.
             {
                 var number = i;
                 var club = regPattern.Clubs[i];
