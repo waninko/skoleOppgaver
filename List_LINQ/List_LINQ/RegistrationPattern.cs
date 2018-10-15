@@ -31,7 +31,7 @@ namespace List_LINQ
             }
              club.Add(registration);
             
-            var name
+            /*var name*/
         }
     }
 }
