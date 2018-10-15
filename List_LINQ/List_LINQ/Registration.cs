@@ -19,12 +19,12 @@ namespace List_LINQ
         {
            var splitLine = csvLine.Split(',');
 
-            StartNr = Convert.ToInt32("0" + splitLine[0].Trim('"'));
-            Name = splitLine[1].Trim('"');
-            Club = splitLine[2].Trim('"');
-            Nationality = splitLine[3].Trim('"');
-            Group = splitLine[4].Trim('"');
-            Class = splitLine[5].Trim('"');
+            StartNr = Convert.ToInt32("0" + splitLine[0].Trim('"')); //fjernet " så ikke det klikker
+            Name = splitLine[1];
+            Club = splitLine[2];
+            Nationality = splitLine[3];
+            Group = splitLine[4];
+            Class = splitLine[5];
         }
 
         public Registration(int startNr, string name, string club, string nationality, string @group, string @class)

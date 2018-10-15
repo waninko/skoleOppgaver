@@ -11,19 +11,17 @@ namespace List_LINQ
        public List<Registration> Registrations { get; private set; }
        public List<Club> Clubs { get; private set; }
 
-        public RegistrationPattern()
+        public RegistrationPattern() //constructor som ligger inn verdiene som er "festet til" registration/clubs i de respektive listene sine.
         {
             Registrations = new List<Registration>();
             Clubs = new List<Club>();
         }
 
 
-        public void lineHandler(string line)
+        public void lineHandler(string line) //henter inn en og en linje i teksten og sender de til registration (hvor den splittes) og legges i lista.
         {
             var registration = new Registration(line);
             Registrations.Add(registration);
-
-            
 
             var club = Clubs.FirstOrDefault(c => c.Name == registration.Club);
             if (club ==  null)
@@ -33,6 +31,7 @@ namespace List_LINQ
             }
              club.Add(registration);
             
+            var name
         }
     }
 }
