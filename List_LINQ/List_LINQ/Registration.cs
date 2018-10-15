@@ -36,5 +36,10 @@ namespace List_LINQ
             Group = @group;
             Class = @class;
         }
+
+        public string MakeString()
+        {
+            return StartNr + " " + Name + " " + Nationality + " " + Group + " " + Class;
+        }
     }
 }

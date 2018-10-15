@@ -36,10 +36,24 @@ namespace List_LINQ
             }
 
             Console.WriteLine("Klubber: ");
-            foreach (var club in regPattern.Clubs)
+            for (int i = 1; i < regPattern.Clubs.Count; i++)
             {
-                Console.WriteLine(club.Name);
+                var number = i;
+                var club = regPattern.Clubs[i];
+                Console.WriteLine("Club Number: "+ number + " ||"+  " Club name: " + club.Name);
             }
+
+            Console.WriteLine("Tast inn klubbnummeret du vil slå opp: ");
+            var typedNumber = Console.ReadLine(); //dette blir en string visst...
+            var convertedNumber = Convert.ToInt32(typedNumber);
+            var clubIndex = convertedNumber - 1;
+            var selectedClub = regPattern.Clubs[clubIndex];
+
+            Console.WriteLine("Påmeldte i denne klubben: ");
+             foreach (var registration in selectedClub.Registrations )
+             {
+                 Console.WriteLine(registration.MakeString());
+             }
         }
     }
 }
