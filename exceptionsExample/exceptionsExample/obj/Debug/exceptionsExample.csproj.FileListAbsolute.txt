@@ -1,0 +1,7 @@
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\bin\Debug\exceptionsExample.exe.config
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\bin\Debug\exceptionsExample.exe
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\bin\Debug\exceptionsExample.pdb
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\obj\Debug\exceptionsExample.csprojAssemblyReference.cache
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\obj\Debug\exceptionsExample.csproj.CoreCompileInputs.cache
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\obj\Debug\exceptionsExample.exe
+C:\Users\GET Academy\source\repos\exceptionsExample\exceptionsExample\obj\Debug\exceptionsExample.pdb
