@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ARV
 {
-    class Triangle
+    class Triangle : Shape
     {
 
         public int directionX { get; private set; }

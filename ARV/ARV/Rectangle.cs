@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ARV
 {
-    class Rectangle
+    class Rectangle : Shape
     {
         public int directionX { get; private set; }
         public int directionY { get; private set; }

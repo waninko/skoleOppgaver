@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ARV
 {
-    class Shape
+    interface Shape
     {
+        void Move();
+        
+
+       string GetCharacter(int row, int col);
+
     }
 }

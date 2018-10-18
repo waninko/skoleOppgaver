@@ -17,7 +17,7 @@ namespace ARV
 
         static void Main(string[] args)
         {
-            var shapes = CreateTriangles();
+            var shapes = CreateShapes();
             while (true)
             {
                 Show(shapes);
@@ -28,16 +28,20 @@ namespace ARV
                 Thread.Sleep(300);
             }
         }
-        private static Triangle[] CreateTriangles()
+        private static Shape[] CreateShapes()
         {
             var random = new Random();
-            var triangles = new Triangle[1]; 
-            for (var i = 0; i < triangles.Length; i++)
+            var shapes = new Shape[5]; 
+            for (var i = 0; i < shapes.Length; i++)
             {
-                triangles[i] = new Triangle(random, _height);
-                triangles[i] = new Triangle(10,10,8);
+                if (random.Next(0, 1) == 0)
+                    shapes[i] = new Rectangle(random,_width, _height);
+                else
+                    new Triangle(random, _height);
+
+
             }
-            return triangles;
+            return shapes;
         }
 
         private static Rectangle[] CreateRectangles()
@@ -50,7 +54,9 @@ namespace ARV
             }
             return boxes;
         }
-        private static void Show(Triangle[] triangles)
+
+
+        private static void Show(Shape[] shapes )
         {
             Console.Clear();
             for (var row = 0; row < _height; row++)
@@ -58,9 +64,9 @@ namespace ARV
                 for (var col = 0; col < _width; col++)
                 {
                     var hasFoundCharacterToPrint = false;
-                    foreach (var triangle in triangles)
+                    foreach (var shape in shapes)
                     {
-                        var character = triangle.GetCharacter(row, col);
+                        var character = shape.GetCharacter(row, col);
                         if (character != null)
                         {
                             Console.Write(character);
@@ -73,28 +79,6 @@ namespace ARV
                 Console.WriteLine();
             }
         }
-        private static void Show(Rectangle[] boxes)
-        {
-            Console.Clear();
-            for (var row = 0; row < _height; row++)
-            {
-                for (var col = 0; col < _width; col++)
-                {
-                    var hasFoundCharacterToPrint = false;
-                    foreach (var box in boxes)
-                    {
-                        var character = box.GetCharacter(row, col);
-                        if (character != null)
-                        {
-                            Console.Write(character);
-                            hasFoundCharacterToPrint = true;
-                            break;
-                        }
-                    }
-                    if (!hasFoundCharacterToPrint) Console.Write(" ");
-                }
-                Console.WriteLine();
-            }
-        }
+        
     }
 }
