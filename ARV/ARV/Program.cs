@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,10 +31,11 @@ namespace ARV
         private static Triangle[] CreateTriangles()
         {
             var random = new Random();
-            var triangles = new Triangle[3];
+            var triangles = new Triangle[1]; 
             for (var i = 0; i < triangles.Length; i++)
             {
                 triangles[i] = new Triangle(random, _height);
+                triangles[i] = new Triangle(10,10,8);
             }
             return triangles;
         }

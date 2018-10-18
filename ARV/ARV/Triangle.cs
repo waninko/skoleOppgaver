@@ -19,6 +19,13 @@ namespace ARV
         public int Size{ get; private set; }
         private int _minimumSize = 3;
 
+        public Triangle(int x, int y, int size)
+        {
+            X = x;
+            Y = y;
+            Size = size;
+        }
+
         public Triangle(Random random, int maxSize)
         {
             directionX = random.Next(0, 2);
@@ -39,12 +46,13 @@ namespace ARV
 
         public string GetCharacter(int row, int col)
         {
-            if (row < Y || col < X) return null;
+            if (row < Y || col < X-1) return null;
             var internalX = col - X;
             var internalY = row - Y;
             if (internalX > 2* Size +2 || internalY > Size + 1) return null; // om man er uttafor sjekker
             if (internalY == Size + 1) return "-";
-            var xPositionSlash = Size - internalY +1;
+
+            var xPositionSlash = Size - internalY;
             var xPositionBackslash = Size + internalY +1;
             if (internalX == xPositionSlash) return "/";
             if (internalX == xPositionBackslash) return "\\";
