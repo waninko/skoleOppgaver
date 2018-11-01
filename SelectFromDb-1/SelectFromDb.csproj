@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Delete.cs" />
+    <Compile Include="Data\Insert.cs" />
     <Compile Include="Data\Select.cs" />
     <Compile Include="Data\SelectStudent.cs" />
+    <Compile Include="Data\Update.cs" />
     <Compile Include="DbModels\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
