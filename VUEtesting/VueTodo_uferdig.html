@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>To Do List Med Vue.JS!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<input v-model="newTodoItem" v-on:keyup.enter='addTodoItem'/>
+<span><button @click.prevent="addItem">Legg Til ToDo</button></span>
+
+
+<!--<div id="todoApp">
+    <ol>
+        <todo-item v-for="item in todoList"
+                   v-bind:todo="item"
+                   v-bind:key="item.id">
+
+        </todo-item>
+
+    </ol>
+</div>-->
+<h5>LIST</h5>
+<ul id="todoApp" v-for="todoLists in todoList" v-bind:key="todoList.id">
+    <li>{{todoList.item}}</li>
+</ul>
+
+
+
+<script>
+    /* Vue.component('todo-item',
+        {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        });*/
+    new Vue({
+        el: '#todoApp',
+        data: {
+            todoList: [
+                { id: 0, item: 'Todo-ting 1' },
+                { id: 1, item: 'Todo-ting 2' },
+                { id: 2, item: 'Todo-ting 3' }
+            ],
+            newTodoItem: '',
+        },
+        methods: {
+            addTodoItem: function() {
+                //først må vi lage en id tilhørende den nye to-do'en.
+                var id = this.todoList.length + 1;
+                if (this.newTodoItem !== '') {
+                    //tar imot nytt input
+                    var newTodoList = { id: id, text: this.newTodoItem }
+                    this.todoList.push(newTodoList); //pusher det inn i lista
+                    this.newTodoItem = ''; //setter tilbake til blank string
+                }
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
