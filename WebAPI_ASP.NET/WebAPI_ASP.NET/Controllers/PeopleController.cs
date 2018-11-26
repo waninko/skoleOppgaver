@@ -104,8 +104,8 @@ namespace WebAPI_ASP.NET.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Person.Add(person);
-            await _context.SaveChangesAsync();
+            /*_context.Person.Add(person);
+            await _context.SaveChangesAsync();*/
 
             return CreatedAtAction("GetPerson", new { id = person.ID }, person);
         }

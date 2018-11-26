@@ -6,7 +6,7 @@
           <v-carousel-item v-for="image in images"
                             :key="image.id"
                             :src="image.imageUrl"
-               v-responsive :height ="400" :width="600">
+               >
           </v-carousel-item>
         </v-carousel>
       </v-flex>
@@ -14,10 +14,9 @@
   </v-container>
 </template>
 
-
 <script>
   export default {
-    data() {
+    data () {
       return {
         images: [
           {
@@ -33,10 +32,14 @@
             imageUrl: 'https://static.tumblr.com/5cd69739caa23f0b0f5060d471dd52fb/hy5bknd/jXEnopfwv/tumblr_static_tumblr_static_7sjpty1w2roks004go80ksccs_640.jpg',
             id: 'testtittel3',
             title: 'greencheek'
+          },
+          {
+            imageUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZjYwNzE1NjAtMjIxNi00MjYwLWJmMjktOWEyMTdhODc2MzMxIiwidCI6IjZmNGVhYzg1LWRhMWQtNDU1NC1iNjM2LTU2NzA3NzFjNzczNSIsImMiOjh9',
+            id: 'testtittel4',
+            title: 'pbi'
           }
         ]
       }
     }
   }
-
 </script>
