@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "QR_codeTester", "QR_codeTester\", "{BCB156B2-F0AB-40D2-8AA7-B1547569B01C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_53554"
+		Debug.AspNetCompiler.PhysicalPath = "QR_codeTester\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53554\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_53554"
+		Release.AspNetCompiler.PhysicalPath = "QR_codeTester\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53554\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53554"
+		SlnRelativePath = "QR_codeTester\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCB156B2-F0AB-40D2-8AA7-B1547569B01C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB156B2-F0AB-40D2-8AA7-B1547569B01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EFAE2EE4-E1C8-408B-90F2-096F437776FD}
+	EndGlobalSection
+EndGlobal
