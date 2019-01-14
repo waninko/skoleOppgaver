@@ -5,6 +5,15 @@
 </head>
 <body>
 <?php 
+	
+	$db = mysqli_connect(
+		"localhost",
+		"username",
+		"password",
+		"database"
+	);
+	
+
 	if (isset($_POST['submit']))
 	{
 		$ok =true;
@@ -30,6 +39,7 @@
 			 htmlspecialchars($_POST['color']));
 		}
 	}
+	mysqli_close($db);
 ?>
 
 
