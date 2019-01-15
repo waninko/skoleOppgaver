@@ -2,7 +2,8 @@
    if(isset($_GET['id']) && ctype_digit($_GET['id'])){
       $id = $_GET['id'];
    }  else{
-     header('Location: select.php'); //om det feiler redirecter den oss til select sida.
+     header('Location: formselect.php'); //om de033
+     t feiler redirecter den oss til select sida.
    }
 ?>
 <!DOCTYPE html>

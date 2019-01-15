@@ -56,9 +56,9 @@
           ,mysqli_real_escape_string($db, $name),
            mysqli_real_escape_string($db, $gender),
            mysqli_real_escape_string($db, $color));
-        mysqli_query($db, $sql);
-        mysqli_close($db);
-        echo '<p> User added. </p>';
+           mysqli_query($db, $sql);
+           mysqli_close($db);
+           echo '<p> User added. </p>';
 
     }
 	}
