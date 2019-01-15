@@ -12,12 +12,14 @@
 </head>
 <body>
 <?php
-  $db = mysqli_connect('localhost', 'root', '', 'php');
+  $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
   $sql = "DELETE FROM users WHERE id=$id";
   mysqli_query($db, $sql);
   echo '<p>User Deleted. </p>';
   mysqli_close($db);
 ?>
-
+<hr>
+  <a href="formselect.php">see registered users</a><br>
+  <a href="form.php">Register more users</a>
 </body>
 </html>

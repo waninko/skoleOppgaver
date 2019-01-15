@@ -40,7 +40,7 @@ if (isset($_POST['submit']))
 
   if ($ok){
 
-    $db =  mysqli_connect('localhost', 'root', '', 'php');
+    $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
     $sql = sprintf("UPDATE users SET name='%s', gender='%s', color='%s'
     WHERE id=%s",
     mysqli_real_escape_string($db, $name),  //realescape ungår behandlig av spesialtegn
@@ -52,7 +52,7 @@ if (isset($_POST['submit']))
   mysqli_close($db);
     }
   } else{
-    $db =  mysqli_connect('localhost', 'root', '', 'php');
+    $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
     $sql = sprintf('SELECT * FROM users WHERE id=%s', $id);
     $result = mysqli_query($db, $sql);
     foreach ($result as $row) {
@@ -64,7 +64,9 @@ if (isset($_POST['submit']))
   }
 
 ?>
-<form method="post" action=""> <hr>
+<form method="post" action="">
+  <a href="formselect.php">see registered&updated users</a>
+  <hr>
   User name: <input type="text" name="name"> <br>
 
   Gender:

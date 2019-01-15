@@ -6,12 +6,12 @@
 <body>
 <?php
 
-	$db = mysqli_connect(
+/*	$db = mysqli_connect(
 		"localhost",
 		"username",
 		"password",
 		"database"
-	);
+	);*/
   $name ='';
   $gender ='';
   $color = '';
@@ -48,7 +48,9 @@
 			 htmlspecialchars($_POST['color']));*/
 
        //SEND TIL DB//
-       $db = mysqli_connect('localhost', 'root', '', 'php');
+       //$db = mysqli_connect('localhost', 'root', ' ', 'php');
+        $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
+
        $sql = sprintf("INSERT INTO users (name, gender, color) VALUES (
          '%s', '%s','%s')"
           ,mysqli_real_escape_string($db, $name),
@@ -57,12 +59,13 @@
         mysqli_query($db, $sql);
         mysqli_close($db);
         echo '<p> User added. </p>';
+
     }
 	}
 
 ?>
 
-
+  <a href="formselect.php">see registered users</a>
 <form method="post" action=""> <hr>
   User name: <input type="text" name="name"> <br>
 

@@ -6,7 +6,7 @@
 <body>
 <ul>
       <?php
-        $db = mysqli_connect('localhost', 'root', '', 'php');
+        $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
         $sql = 'SELECT * FROM users';
         $result = mysqli_query($db, $sql);
 
@@ -25,6 +25,6 @@
       ?>
 
 </ul>
-
+  <a href="form.php">Back to form</a>
 </body>
 </html>
