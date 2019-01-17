@@ -1,18 +1,23 @@
 <?php
+    require 'auth.php';
+
    if(isset($_GET['id']) && ctype_digit($_GET['id'])){
       $id = $_GET['id'];
    }  else{
-     header('Location: formselect.php'); //om de033
-     t feiler redirecter den oss til select sida.
+     //om det feiler redirecter den oss til select sida.
+     header('Location: formselect.php');
    }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <title>PHP UPDATE DB</title>
+
 <body>
 
 <?php
+
+
 $name ='';
 $gender ='';
 $color = '';
@@ -54,7 +59,7 @@ if (isset($_POST['submit']))
     }
   } else{
     $db = mysqli_connect('localhost', 'root', '', 'php', 3307, null);
-    $sql = sprintf('SELECT * FROM users WHERE id=%s', $id);
+    $sql = sprintf("SELECT * FROM users WHERE id='%s'", $id);
     $result = mysqli_query($db, $sql);
     foreach ($result as $row) {
       $name = $row['name'];
@@ -66,7 +71,7 @@ if (isset($_POST['submit']))
 
 ?>
 <form method="post" action="">
-  <a href="formselect.php">see registered&updated users</a>
+
   <hr>
   User name: <input type="text" name="name"> <br>
 
@@ -83,3 +88,6 @@ if (isset($_POST['submit']))
       </select><br>
       <input type="submit" name="submit" value="submit">
   </form>
+<?php   readfile('navigation.tmpl.html'); ?>
+</body>
+</html>
