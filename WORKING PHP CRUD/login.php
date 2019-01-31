@@ -9,7 +9,7 @@
     mysqli_real_escape_string($db, $_POST['name']));
      $result = mysqli_query($db, $sql);
      $row = mysqli_fetch_assoc($result);
-
+/*
      if($row){
        $hash = $row['password'];
        $isAdmin = $row['isAdmin'];
@@ -22,7 +22,7 @@
 
            } else { $message = 'Login Failed.';}
           }else {$message = 'Login Failed'; }
-
+*/
     mysqli_close($db);
   }
 ?>
