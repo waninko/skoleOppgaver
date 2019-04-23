@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using vaskeApp.Models;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.SpaServices.Webpack;
+using System.IO;
 
 namespace vaskeApp
 {
@@ -47,6 +49,14 @@ namespace vaskeApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseWebpackDevMiddleware(
+                    new WebpackDevMiddlewareOptions
+                    {
+                        HotModuleReplacement = true,
+                            ConfigFile = Path.Combine(env.ContentRootPath, @"vueclient\build\webpack.base.conf.js"),
+                            ProjectPath = Path.Combine(env.ContentRootPath, @"vueclient") //Hvor npm modulen kalles fra
+                    });
             }
             else
             {
@@ -54,6 +64,7 @@ namespace vaskeApp
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
