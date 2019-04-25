@@ -54,7 +54,8 @@ export default {
     }
   },
   mounted: function(){
-    fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {
+    //animals https://opentdb.com/api.php?amount=10&category=27&type=multiple
+    fetch('https://opentdb.com/api.php?amount=40&category=12&type=multiple', {
       method: 'get'
     })
     .then((response) => {

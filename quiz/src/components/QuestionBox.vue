@@ -3,7 +3,8 @@
   <b-jumbotron>
 
     <template slot="lead">
-      {{ currentQuestion.question }}
+      <!-- {{ currentQuestion.question }} -->
+      <span v-html="currentQuestion.question"></span>
     </template>
 
     <hr class="my-4">
@@ -32,7 +33,7 @@
 </div>
 </template>
 
-<script>
+<script >
 import _ from 'lodash'
 
 export default{
