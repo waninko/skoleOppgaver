@@ -3,7 +3,7 @@
   <b-jumbotron>
 
     <template slot="lead">
-      <!-- {{ currentQuestion.question }} -->
+      <!-- {{ currentQuestion.question }} span to avoid ascii issues-->
       <span v-html="currentQuestion.question"></span>
     </template>
 
@@ -16,7 +16,8 @@
       @click="selectAnswer(index)"
       :class="answerClass(index)"
       >
-        {{ answer }}
+        <!-- {{ answer }} span to avoid ascii issues-->
+         <span v-html="answer"></span>
       </b-list-group-item>
     </b-list-group>
     

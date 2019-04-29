@@ -4,7 +4,10 @@
       :numCorrect="numCorrect"
       :numTotal="numTotal"
     />
-
+<ScoreBoard v-if="showScores"
+      :numCorrect="numCorrect"
+      :showScores="showScores"
+    />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
@@ -17,26 +20,30 @@
         </b-col>
       </b-row>
     </b-container>
+    
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import QuestionBox from './components/QuestionBox.vue'
+import ScoreBoard from './components/ScoreBoard.vue'
 
 
 export default {
   name: 'app',
   components: {
     Header,
-    QuestionBox
+    QuestionBox,
+    ScoreBoard
   },
   data() {
     return {
       questions: [],
       index: 0,
       numCorrect: 0,
-      numTotal: 0
+      numTotal: 0,
+      showScores: false
     }
   },
   methods: {
@@ -44,17 +51,22 @@ export default {
       this.index++
     },
     increment(isCorrect) {
-      console.log("isCorrect in app.vue: " , isCorrect)
       if(isCorrect){
         
         this.numCorrect++
       }
       
       this.numTotal++
+      if(this.numTotal == 2){
+        alert("2 questions done, showing scores");
+        this.showScores = true;
+      }
+    },
+    goToScores(){
+
     }
   },
   mounted: function(){
-    //animals https://opentdb.com/api.php?amount=10&category=27&type=multiple
     fetch('https://opentdb.com/api.php?amount=40&category=12&type=multiple', {
       method: 'get'
     })
