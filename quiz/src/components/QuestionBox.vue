@@ -41,7 +41,7 @@ export default{
   props: {
     currentQuestion: Object,
     next: Function,
-    increment: Function
+    incrementCheckAndGetName: Function
   },
   data() {
     return {
@@ -84,7 +84,7 @@ export default{
         isCorrect = true;
       }
       this.answered = true
-      this.increment(isCorrect)
+      this.incrementCheckAndGetName(isCorrect)
     },
     answerClass(index){
       let answerClass = ''

@@ -7,15 +7,18 @@
 <ScoreBoard v-if="showScores"
       :numCorrect="numCorrect"
       :showScores="showScores"
+      :savedName="savedName"
+      :scores="scores"
     />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
           <QuestionBox 
-            v-if="questions.length"
+            v-if="questions.length && !showScores"  
+          
             :currentQuestion="questions[index]"
             :next="next"
-            :increment="increment"
+            :incrementCheckAndGetName="incrementCheckAndGetName"
           />
         </b-col>
       </b-row>
@@ -28,6 +31,21 @@
 import Header from './components/Header.vue'
 import QuestionBox from './components/QuestionBox.vue'
 import ScoreBoard from './components/ScoreBoard.vue'
+
+import Firebase from 'firebase'
+import VueFire from 'vuefire'
+
+ let config = {
+    apiKey: "AIzaSyACUTRWR1G95ZdvJ8AJXzcc8sAbpNFI5T4",
+    authDomain: "musicquiz-3e9f4.firebaseapp.com",
+    databaseURL: "https://musicquiz-3e9f4.firebaseio.com",
+    projectId: "musicquiz-3e9f4",
+    storageBucket: "musicquiz-3e9f4.appspot.com",
+    messagingSenderId: "832892959771"
+  };
+  let fireApp = Firebase.initializeApp(config);
+  let db = fireApp.database()
+  let scoresRef = db.ref('userScores')
 
 
 export default {
@@ -43,14 +61,19 @@ export default {
       index: 0,
       numCorrect: 0,
       numTotal: 0,
-      showScores: false
+      showScores: false,
+      savedName: ''
     }
   },
+  firebase:{
+   scores: scoresRef
+ },
   methods: {
     next(){
       this.index++
     },
-    increment(isCorrect) {
+
+    incrementCheckAndGetName(isCorrect) {
       if(isCorrect){
         
         this.numCorrect++
@@ -58,12 +81,13 @@ export default {
       
       this.numTotal++
       if(this.numTotal == 2){
-        alert("2 questions done, showing scores");
-        this.showScores = true;
-      }
-    },
-    goToScores(){
+        let promptName = prompt("Skriv inn navnet ditt")
+        this.savedName = promptName
+         
+        this.showScores = true
 
+    
+      }
     }
   },
   mounted: function(){

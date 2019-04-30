@@ -2,7 +2,7 @@
   <div>
     <b-nav tabs>
       <b-nav-item disabled><b>-=Music Quiz=- </b></b-nav-item>
-      <b-nav-item disabled>Questions Answered: {{ numTotal }}/15</b-nav-item>
+      <b-nav-item disabled>Questions Answered: {{ numTotal }}/2</b-nav-item>
       <b-nav-item disabled>Current Score: {{ numCorrect }} </b-nav-item>
       <b-nav-item disabled>Current Success: {{ calculateScore }}</b-nav-item>
     </b-nav>
