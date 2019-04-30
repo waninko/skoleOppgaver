@@ -1,6 +1,7 @@
 <template>
   <div class="yourScore">
 <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }}</p>
+<button @click="addScore()">SUBMIT SCORE</button>
   <table class="table table-striped">
       <thead>
         <tr>
@@ -9,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="score in scores" v-bind:key= score.score_id>
+        <tr v-for="score in userScores" v-bind:key= score.score_id>
           <td>{{score.score}}</td>
           <td>{{score.name}}</td>
         </tr>
@@ -23,20 +24,7 @@
 </template>
 
 <script>
-// import Firebase from 'firebase'
-// import VueFire from 'vuefire'
-
-//  let config = {
-//     apiKey: "AIzaSyACUTRWR1G95ZdvJ8AJXzcc8sAbpNFI5T4",
-//     authDomain: "musicquiz-3e9f4.firebaseapp.com",
-//     databaseURL: "https://musicquiz-3e9f4.firebaseio.com",
-//     projectId: "musicquiz-3e9f4",
-//     storageBucket: "musicquiz-3e9f4.appspot.com",
-//     messagingSenderId: "832892959771"
-//   };
-//   let fireApp = Firebase.initializeApp(config);
-//   let db = fireApp.database()
-//   let scoresRef = db.ref('userScores')
+import { db } from '../main'
 
 export default {
   props: [
@@ -45,19 +33,30 @@ export default {
     'savedName',
     'scores'
   ],
-//  firebase:{
-//    scores: scoresRef
-//  },
+  data() {
+    return{
+      userScores: [],
+      name:this.savedName,
+      userScore: this.numCorrect
+    }
+  },
+  firestore(){
+    return {
+      userScores: db.collection('userScores').orderBy('score')
+    }
+  },
  methods: {
    console(){
-     console.log("dette ligger i scores" , scores)
+     console.log("dette ligger i name" , this.name)
+   },
+   addScore(){
+     let name= JSON.stringify(this.name)
+     let userScore= JSON.stringify(this.userScore)
+     db.collection('userScores').add({name, userScore})
    }
+   
  }
 }
-//Method: popup etter endt spill: enter name
-//Method remove hidden class when totalscore == 10..15.. etc så scorelista kommer opp etter endt spill.
-//koble inn firebase etc
-
 </script>
 
 <style scoped>
