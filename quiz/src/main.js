@@ -10,14 +10,13 @@ import VueRouter from 'vue-router'
 import VueFire from 'vuefire'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { firestorePlugin } from 'vuefire'
 
 import App from './App.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
-Vue.use(firestorePlugin)
-//Vue.use(VueFire)
+Vue.use(VueFire)
+
 firebase.initializeApp({
   projectId: 'musicquiz-3e9f4',
   databaseURL: 'https://musicquiz-3e9f4.firebaseio.com'
