@@ -46,7 +46,7 @@ export default {
   // },
   computed: {
   orderedScores() {
-    return _.orderBy(this.userScores, 'userScore')
+    return _.orderBy(this.userScores, 'userScore' ,['desc'])
   }
 },
   methods: {
