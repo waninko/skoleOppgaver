@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :numCorrect="numCorrect" :numTotal="numTotal"/>
+    <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"/>
     <ScoreBoard
       v-if="showScores"
       :numCorrect="numCorrect"
@@ -38,6 +38,7 @@ export default {
       questions: [],
       index: 0,
       numCorrect: 0,
+      numWrong: 0,
       numTotal: 0,
       showScores: false,
       savedName: "",
@@ -51,15 +52,18 @@ export default {
 
     incrementCheckAndGetName(isCorrect) {
       if (isCorrect) {
-        this.numCorrect++;
+        this.numCorrect++
+      }
+      else if(!isCorrect){
+        this.numWrong++
       }
 
-      this.numTotal++;
-      if (this.numTotal == 2) {
-        let promptName = prompt("Skriv inn navnet ditt");
-        this.savedName = promptName;
+      this.numTotal++
+      if (this.numTotal == 15) {
+        let promptName = prompt("Enter your name:")
+        this.savedName = promptName
 
-        this.showScores = true;
+        this.showScores = true
       }
     }
   },

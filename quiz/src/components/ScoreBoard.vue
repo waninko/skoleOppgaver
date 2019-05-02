@@ -2,7 +2,6 @@
   <div class="yourScore">
     <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }}</p>
     <button @click="addScore()">SUBMIT SCORE</button>
-    <button @click="showScores()">SHOWSCOREs</button>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -40,6 +39,7 @@ export default {
   created() {
     this.name = this.savedName
     this.userScore = this.numCorrect
+    this.showScores()
   },
   // firestore: {
   //   userScores: db.collection("userScores") //.orderBy("score")
@@ -59,6 +59,7 @@ export default {
       let name = JSON.stringify(this.name)
       let userScore = JSON.stringify(this.userScore)
       db.collection("userScores").add({ name, userScore })
+       this.showScores()
     },
     showScores() {
      db.collection("userScores")
