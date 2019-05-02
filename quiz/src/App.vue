@@ -4,9 +4,7 @@
     <ScoreBoard
       v-if="showScores"
       :numCorrect="numCorrect"
-      :showScores="showScores"
       :savedName="savedName"
-      :scores="scores"
     />
     <b-container class="bv-example-row">
       <b-row>
@@ -28,7 +26,6 @@ import Header from "./components/Header.vue";
 import QuestionBox from "./components/QuestionBox.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 
-
 export default {
   name: "app",
   components: {
@@ -43,8 +40,8 @@ export default {
       numCorrect: 0,
       numTotal: 0,
       showScores: false,
-      savedName: "" ,
-      scores: null     
+      savedName: "",
+      scores: null
     };
   },
   methods: {
