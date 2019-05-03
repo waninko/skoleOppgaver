@@ -22,6 +22,8 @@
 
 <script>
 import { db } from "../main";
+import _ from 'lodash'
+import underscore from 'underscore'
 console.log("ScoreBoard " + new Date().toLocaleTimeString(), db);
 
 export default {
@@ -40,10 +42,10 @@ export default {
     this.name = this.savedName
     this.userScore = this.numCorrect
     this.showScores()
+    
+    
+    
   },
-  // firestore: {
-  //   userScores: db.collection("userScores") //.orderBy("score")
-  // },
   computed: {
   orderedScores() {
     return _.orderBy(this.userScores, 'userScore' ,['desc'])
@@ -51,38 +53,73 @@ export default {
 },
   methods: {
     console() {
-      console.log("dette ligger i name: ", this.name)
-      console.log("dette ligger i userScore: ", this.userScore)
-      console.log("dette ligger i userScores: ", this.userScores)
+      // console.log("dette ligger i name: ", this.name)
+      // console.log("dette ligger i userScore: ", this.userScore)
+      // console.log("dette ligger i userScores: ", this.userScores)
+      this.uniqueUsers()
     },
+
     addScore() {
       let name = JSON.stringify(this.name)
       let userScore = JSON.stringify(this.userScore)
-      db.collection("userScores").add({ name, userScore })
-       this.showScores()
+      //loading start anim på knapp her (buttonloader)
+      db.collection("userScores").add({ name, userScore }).then(() => {
+        console.log("Added score") //legg til loading stopp her
+      })
+       
     },
+
     showScores() {
-     db.collection("userScores")
-     .get()
-     .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-        console.log( "name: " + `${doc.data().name}` + "   |  score: " + ` ${doc.data().userScore}`)
-        
-              let name = `${doc.data().name}` 
-              let userScore =  `${doc.data().userScore}`
-              let dbScore = {
-                name: name,
-                userScore: userScore
-              }
-              this.userScores.push(dbScore)
-            });
+      db.collection("userScores").onSnapshot(res => {
+        const changes = res.docChanges()
+
+        changes.forEach(change => {
+          if(change.type === 'added'){
+            this.userScores.push({
+              ...change.doc.data()
+            })
+          }
+          
+          //this.userScores.push(doc.data())
+           
         })
-      .catch((error)  => {
-        console.log("Error getting documents: ", error);
-});
+      }) 
+      
     },
     sortScores(){
       this.userScores.orderBy("userScore")
+    },
+    uniqueUsers(){
+      /*const result = []
+      const map = new Map()
+      for( const score of this.userScores){
+        if(!map.has(score.name)){
+            map.set(score.name, true)
+            result.push({
+              name: score.name,
+              userScore: score.userScore
+            })
+        }
+      }
+      //[...new Set(this.userScores.map(x=> x.name))]
+      console.log("unikt? " + result.score)*/
+      console.log("userscores: "+ this.userScores)
+      //var newArray = [...new Set(this.userScores)]
+//       var out = Object.values(
+//       this.userScores.reduce( (c, e) => {
+//       if (!c[e.name]) c[e.name] = e;
+//       return c;
+//   }, {})
+// );
+// var res = this.userScores.reduce((acc, obj)=>{
+//    var exist = acc.find(({userScore, name}) => obj.userScore === userScore && obj.name === name);
+//    if(!exist){
+//     acc.push(obj);
+//    }
+//    return acc;
+// },[]);
+
+      console.log("newArray " + res)
     }
   }
 };

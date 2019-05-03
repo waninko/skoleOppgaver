@@ -6,16 +6,17 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import VueRouter from 'vue-router'
 
-
 import VueFire from 'vuefire'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import App from './App.vue'
+import underscore from 'underscore'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(VueFire)
+Vue.use(underscore)
 
 firebase.initializeApp({
   projectId: 'musicquiz-3e9f4',
