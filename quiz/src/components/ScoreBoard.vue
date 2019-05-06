@@ -41,22 +41,26 @@ export default {
   created() {
     this.name = this.savedName
     this.userScore = this.numCorrect
-    this.showScores()
-    
-    
+    this.showScores() 
     
   },
   computed: {
   orderedScores() {
-    return _.orderBy(this.userScores, 'userScore' ,['desc'])
+    let userScores = this.uniqueNames(this.userScores)
+    return _.orderBy(userScores, 'userScore' ,['desc'])
+   
   }
-},
+  
+  },
+
   methods: {
     console() {
       // console.log("dette ligger i name: ", this.name)
       // console.log("dette ligger i userScore: ", this.userScore)
       // console.log("dette ligger i userScores: ", this.userScores)
-      this.uniqueUsers()
+
+      console.log("uniqueNames: " + this.uniqueNames(this.userScores))
+     
     },
 
     addScore() {
@@ -77,50 +81,27 @@ export default {
           if(change.type === 'added'){
             this.userScores.push({
               ...change.doc.data()
-            })
+            }) 
           }
-          
+         
           //this.userScores.push(doc.data())
-           
+          
         })
       }) 
       
     },
-    sortScores(){
-      this.userScores.orderBy("userScore")
-    },
-    uniqueUsers(){
-      /*const result = []
-      const map = new Map()
-      for( const score of this.userScores){
-        if(!map.has(score.name)){
-            map.set(score.name, true)
-            result.push({
-              name: score.name,
-              userScore: score.userScore
-            })
+    
+    uniqueNames(arrayName){
+      let uniqueNames = []
+      arrayName.map(user => {
+        if(!uniqueNames.find(i => i.name === user.name) > 0){
+          uniqueNames.push(user)
         }
-      }
-      //[...new Set(this.userScores.map(x=> x.name))]
-      console.log("unikt? " + result.score)*/
-      console.log("userscores: "+ this.userScores)
-      //var newArray = [...new Set(this.userScores)]
-//       var out = Object.values(
-//       this.userScores.reduce( (c, e) => {
-//       if (!c[e.name]) c[e.name] = e;
-//       return c;
-//   }, {})
-// );
-// var res = this.userScores.reduce((acc, obj)=>{
-//    var exist = acc.find(({userScore, name}) => obj.userScore === userScore && obj.name === name);
-//    if(!exist){
-//     acc.push(obj);
-//    }
-//    return acc;
-// },[]);
-
-      console.log("newArray " + res)
+      })
+      return uniqueNames
     }
+  
+    
   }
 };
 </script>
