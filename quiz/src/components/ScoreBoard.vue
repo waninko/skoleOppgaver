@@ -46,9 +46,10 @@ export default {
   },
   computed: {
   orderedScores() {
-    let userScores = this.uniqueNames(this.userScores)
-    return _.orderBy(userScores.slice(0,11), 'userScore' ,['desc'])
-   
+    let userScores = this.uniqueNames(this.userScores)  
+    let ordered = _.orderBy(userScores, function (o) { 
+                   return new Number(o.userScore); }, ['desc'])
+    return ordered.slice(0,11)
   }
   
   },
