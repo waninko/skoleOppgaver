@@ -49,7 +49,7 @@ export default {
     let userScores = this.uniqueNames(this.userScores)  
     let ordered = _.orderBy(userScores, function (o) { 
                    return new Number(o.userScore); }, ['desc'])
-    return ordered.slice(0,11)
+    return ordered.slice(0,10)
   }
   
   },

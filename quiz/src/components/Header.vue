@@ -2,9 +2,9 @@
   <div>
     <b-nav tabs>
       <b-nav-item disabled><b>-=Music Quiz=- </b></b-nav-item>
-      <b-nav-item disabled>Questions Answered: {{ numTotal }}/2</b-nav-item>
+      <b-nav-item disabled>Questions Answered: {{ numTotal }}/5</b-nav-item>
       <b-nav-item disabled>Current Score: {{ numCorrect }} </b-nav-item>
-       <b-nav-item disabled>Current Fails: {{ numWrong }}</b-nav-item>
+       <b-nav-item disabled>Current Errors: {{ numWrong }}</b-nav-item>
     </b-nav>
     
   
@@ -41,9 +41,6 @@ export default {
       }
        else return 0 + "%";
     }
-  },
-  methods: {
-  
   }
 }
 </script>

@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"/>
+    <Timer 
+    :submitAnswer ="submitAnswer"
+    :nextQuestion="nextQuestion"
+    />
+    <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"  />
+    
     <ScoreBoard
       v-if="showScores"
       :numCorrect="numCorrect"
@@ -14,6 +19,7 @@
             :currentQuestion="questions[index]"
             :next="next"
             :incrementCheckAndGetName="incrementCheckAndGetName"
+            :submitAnswer ="submitAnswer"
           />
         </b-col>
       </b-row>
@@ -25,13 +31,15 @@
 import Header from "./components/Header.vue";
 import QuestionBox from "./components/QuestionBox.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
+import Timer from "./components/Timer.vue";
 
 export default {
   name: "app",
   components: {
     Header,
     QuestionBox,
-    ScoreBoard
+    ScoreBoard,
+    Timer
   },
   data() {
     return {
@@ -42,12 +50,15 @@ export default {
       numTotal: 0,
       showScores: false,
       savedName: "",
-      scores: null
+      scores: null,
+      submitAnswer: false,
+      nextQuestion: false
     };
   },
   methods: {
     next() {
-      this.index++;
+      this.index++
+      this.nextQuestion = true
     },
 
     incrementCheckAndGetName(isCorrect) {
@@ -57,9 +68,9 @@ export default {
       else if(!isCorrect){
         this.numWrong++
       }
-
+      this.submitAnswer = true
       this.numTotal++
-      if (this.numTotal == 2) {
+      if (this.numTotal == 5) {
         let promptName = prompt("Enter your name:")
         this.savedName = promptName
 
