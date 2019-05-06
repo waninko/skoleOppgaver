@@ -47,7 +47,7 @@ export default {
   computed: {
   orderedScores() {
     let userScores = this.uniqueNames(this.userScores)
-    return _.orderBy(userScores, 'userScore' ,['desc'])
+    return _.orderBy(userScores.slice(0,11), 'userScore' ,['desc'])
    
   }
   
@@ -59,7 +59,7 @@ export default {
       // console.log("dette ligger i userScore: ", this.userScore)
       // console.log("dette ligger i userScores: ", this.userScores)
 
-      console.log("uniqueNames: " + this.uniqueNames(this.userScores))
+      console.log("uniqueNames: " + JSON.stringify(this.uniqueNames(this.userScores))) 
      
     },
 
