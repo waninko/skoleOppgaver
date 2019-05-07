@@ -1,6 +1,7 @@
 <template>
   <div class="yourScore">
-    <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }}</p>
+    <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }} - og TidsPoeng på {{timePoints}}</p>
+    <p>SAMLET: {{numCorrect + timePoints}}</p>
     <button @click="addScore()">SUBMIT SCORE</button>
     <table class="table table-striped">
       <thead>
@@ -27,7 +28,7 @@ import underscore from 'underscore'
 console.log("ScoreBoard " + new Date().toLocaleTimeString(), db);
 
 export default {
-  props: ["numCorrect", "savedName"],
+  props: ["numCorrect", "savedName", "timePoints"],
   data() {
     return {
       userScores: [{
@@ -49,7 +50,7 @@ export default {
     let userScores = this.uniqueNames(this.userScores)  
     let ordered = _.orderBy(userScores, function (o) { 
                    return new Number(o.userScore); }, ['desc'])
-    return ordered.slice(0,10)
+                   return ordered.slice(0,10)
   }
   
   },
@@ -60,14 +61,16 @@ export default {
       // console.log("dette ligger i userScore: ", this.userScore)
       // console.log("dette ligger i userScores: ", this.userScores)
 
-      console.log("uniqueNames: " + JSON.stringify(this.uniqueNames(this.userScores))) 
+      console.log("timeScore: " + this.timePoints) 
      
     },
 
     addScore() {
       let name = JSON.stringify(this.name)
-      let userScore = JSON.stringify(this.userScore)
+      let calculatedScore = this.userScore + this.timePoints
+      let userScore = JSON.stringify(calculatedScore)
       //loading start anim på knapp her (buttonloader)
+      
       db.collection("userScores").add({ name, userScore }).then(() => {
         console.log("Added score") //legg til loading stopp her
       })

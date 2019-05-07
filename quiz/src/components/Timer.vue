@@ -15,13 +15,12 @@
 
 <script>
 export default {
-  props: ["index"],
+  props: ["index", "showScores"],
   data() {
     return {
       timer: null,
       startTime: 0,
-      timePoints: 0,
-      isTimeStopped: false
+      timePoints: 0
 
     };
   },
@@ -33,6 +32,9 @@ export default {
       this.calculateTimePoints()
       this.resetTimer()
       this.startTimer()
+    },
+    showScores: function(bool){
+        this.emitToParent()
     }
   },
 
@@ -64,8 +66,9 @@ export default {
         console.log("added 2 points.")
         this.timePoints +=2
       }
-      
-    
+    },
+    emitToParent(event){
+      this.$emit("childToParent", this.timePoints)
     }
   },
 

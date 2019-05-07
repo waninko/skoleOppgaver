@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <Timer 
-    :submitAnswer ="submitAnswer"
+    :timePoints ="timePoints"
     :index ="index"
+    :showScores="showScores"
+    v-on:childToParent="updateTimeScore"
     />
     <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"  />
     
@@ -10,6 +12,7 @@
       v-if="showScores"
       :numCorrect="numCorrect"
       :savedName="savedName"
+      :timePoints="timePoints"
     />
     <b-container class="bv-example-row">
       <b-row>
@@ -51,7 +54,8 @@ export default {
       showScores: false,
       savedName: "",
       scores: null,
-      submitAnswer: false
+      submitAnswer: false,
+      timePoints: 0
     };
   },
   methods: {
@@ -74,6 +78,9 @@ export default {
 
         this.showScores = true
       }
+    },
+    updateTimeScore(value){
+      this.timePoints = value
     }
   },
   mounted: function() {
