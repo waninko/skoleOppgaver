@@ -2,7 +2,7 @@
   <div id="app">
     <Timer 
     :submitAnswer ="submitAnswer"
-    :nextQuestion="nextQuestion"
+    :index ="index"
     />
     <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"  />
     
@@ -51,14 +51,12 @@ export default {
       showScores: false,
       savedName: "",
       scores: null,
-      submitAnswer: false,
-      nextQuestion: false
+      submitAnswer: false
     };
   },
   methods: {
     next() {
       this.index++
-      this.nextQuestion = true
     },
 
     incrementCheckAndGetName(isCorrect) {

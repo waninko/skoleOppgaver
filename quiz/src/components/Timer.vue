@@ -1,69 +1,83 @@
 <template>
-    <div>
-        <h2> TIMER: {{ time }}  -  timePoints: {{timePoints}}</h2>
-    </div>
+  <div id="timer">
+    <span id="minutes">{{ minutes }}</span>
+    <span id="middle">:</span>
+    <span id="seconds">{{ seconds }}</span>
+    <button id="start" @click="startTimer">START</button>
+    <!--     Pause Timer -->
+    <button id="stop" @click="stopTimer">PAUSE</button>
+    <!--     Restart Timer -->
+    <button id="reset" @click="resetTimer">RESET</button>
+    <span id="seconds">TimePoints: {{ timePoints }}</span>
+  </div>
 </template>
 
-<script>
 
+<script>
 export default {
-  props: {
-      submitAnswer: Boolean,
-      nextQuestion: Boolean
+  props: ["index"],
+  data() {
+    return {
+      timer: null,
+      startTime: 0,
+      timePoints: 0,
+      isTimeStopped: false
+
+    };
+  },
+  mounted() {
+    this.startTimer()
   },
   watch: {
-      nextQuestion: function(Boolean){
-          console.log("nextQ endret seg!")
-          this.startTimer()
-          this.nextQuestion = false
-      }
-  },
-  data(){
-    return {
-      time: 0,
-      isRunning: false,
-      interval: null,
-      timePoints: null
+    index: function(integer) {
+      this.calculateTimePoints()
+      this.resetTimer()
+      this.startTimer()
     }
   },
-  created() {
-        this.startTimer()
-        
-  },
-  computed: {
 
-  },
   methods: {
-   startTimer() {
-       console.log("er enxtQuestion true eller false? " + this.nextQuestion)
-       if(this.nextQuestion == false){
-          this.interval = setInterval(this.incrementTime, 1000)
-          this.isRunning = !this.isRunning
-        }
-        else if( this.nextQuestion == true){
-            this.time = 0
-            this.interval = setInterval(this.incrementTime, 1000)
-            this.isRunning = !this.isRunning
-        }
-        else { console.log("Something went wrong...")}
+    startTimer: function() {
+      this.timer = setInterval(() => this.countUp(), 1000);
     },
-
-    incrementTime() {
-      this.time = parseInt(this.time) + 1;
-      if(this.submitAnswer == true && this.nextQuestion == false){
-           clearInterval(this.interval);
-           this.timerPoints()
-         }
+    stopTimer: function() {
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    resetTimer: function() {
+      this.startTime = 0;
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    padTime: function(time) {
+      return (time < 10 ? "0" : "") + time;
+    },
+    countUp: function() {
+      this.startTime++;
+    },
+    calculateTimePoints: function() {
+      if(this.seconds <= 2){
+        console.log("added 5 points.")
+        this.timePoints +=5
+      }
+      else if(this.seconds <= 5){
+        console.log("added 2 points.")
+        this.timePoints +=2
+      }
       
+    
+    }
+  },
+
+  computed: {
+    minutes: function() {
+      const minutes = Math.floor(this.startTime / 60);
+      return this.padTime(minutes);
     },
-    timerPoints(){
-        if(this.time <= 5){
-            console.log("timerpoints: " + this.timePoints)
-            this.timePoints = 5
-        }
-        else {this.timePoints = 2}
+    seconds: function() {
+      const seconds = this.startTime - this.minutes * 60;
+      return this.padTime(seconds);
     }
   }
-}
-
+};
 </script>

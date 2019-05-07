@@ -85,6 +85,7 @@ export default{
       }
       this.answered = true
       this.incrementCheckAndGetName(isCorrect)
+      this.next()
     },
     answerClass(index){
       let answerClass = ''
