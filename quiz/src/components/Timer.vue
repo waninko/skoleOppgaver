@@ -3,11 +3,6 @@
     <span id="minutes">{{ minutes }}</span>
     <span id="middle">:</span>
     <span id="seconds">{{ seconds }}</span>
-    <button id="start" @click="startTimer">START</button>
-    <!--     Pause Timer -->
-    <button id="stop" @click="stopTimer">PAUSE</button>
-    <!--     Restart Timer -->
-    <button id="reset" @click="resetTimer">RESET</button>
     <span id="seconds">TimePoints: {{ timePoints }}</span>
   </div>
 </template>
@@ -15,7 +10,7 @@
 
 <script>
 export default {
-  props: ["index", "showScores"],
+  props: ["index", "showScores", "numCorrect"],
   data() {
     return {
       timer: null,
@@ -29,12 +24,16 @@ export default {
   },
   watch: {
     index: function(integer) {
-      this.calculateTimePoints()
+      //this.calculateTimePoints()
       this.resetTimer()
       this.startTimer()
     },
     showScores: function(bool){
         this.emitToParent()
+        this.stopTimer()
+    },
+    numCorrect: function(integer){
+      this.calculateTimePoints()
     }
   },
 

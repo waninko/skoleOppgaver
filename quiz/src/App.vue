@@ -3,6 +3,7 @@
     <Timer 
     :timePoints ="timePoints"
     :index ="index"
+    :numCorrect="numCorrect"
     :showScores="showScores"
     v-on:childToParent="updateTimeScore"
     />
