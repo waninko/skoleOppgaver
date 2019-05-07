@@ -3,15 +3,15 @@
     <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }} - og TidsPoeng på {{timePoints}}</p>
     <p>SAMLET: {{numCorrect + timePoints}}</p>
     <button @click="addScore()">SUBMIT SCORE</button>
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-striped ">
+      <thead class="thead-light">
         <tr>
           <th>Score</th>
           <th>Name</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="score in orderedScores" v-bind:key="score.id">
+        <tr  v-for="score in orderedScores" v-bind:key="score.id">
           <td>{{score.userScore}}</td>
           <td>{{score.name}}</td>
         </tr>

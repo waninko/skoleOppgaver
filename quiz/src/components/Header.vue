@@ -1,17 +1,19 @@
 <template>
   <div>
+
+     <b-progress class="mt-2" :max="1" show-value>
+      <b-progress-bar :value="numTotal" variant="warning">Current Success: {{ calculateScore }}</b-progress-bar>
+      <b-progress-bar :value="numWrong" variant="secondary">Number of Errors: {{ errorPercent }} </b-progress-bar>
+      </b-progress> 
     <b-nav tabs>
       <b-nav-item disabled><b>-=Music Quiz=- </b></b-nav-item>
-      <b-nav-item disabled>Questions Answered: {{ numTotal }}/5</b-nav-item>
+      <b-nav-item disabled>Questions Answered: {{ numTotal }}/10</b-nav-item>
       <b-nav-item disabled>Current Score: {{ numCorrect }} </b-nav-item>
        <b-nav-item disabled>Current Errors: {{ numWrong }}</b-nav-item>
     </b-nav>
     
   
-     <b-progress class="mt-2" :max="1" show-value>
-      <b-progress-bar :value="numTotal" variant="success">Current Success: {{ calculateScore }}</b-progress-bar>
-      <b-progress-bar :value="numWrong" variant="danger">Number of Errors: {{ errorPercent }} </b-progress-bar>
-      </b-progress> 
+    
   </div>
 </template>
 

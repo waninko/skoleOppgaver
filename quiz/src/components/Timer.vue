@@ -1,9 +1,9 @@
 <template>
-  <div id="timer">
+  <div class="timerBox" id="timer">
     <span id="minutes">{{ minutes }}</span>
     <span id="middle">:</span>
-    <span id="seconds">{{ seconds }}</span>
-    <span id="seconds">TimePoints: {{ timePoints }}</span>
+    <span id="seconds">{{ seconds }}</span><br>
+    <span id="seconds">  TimePoints: {{ timePoints }}</span>
   </div>
 </template>
 
@@ -57,13 +57,17 @@ export default {
       this.startTime++;
     },
     calculateTimePoints: function() {
-      if(this.seconds <= 2){
-        console.log("added 5 points.")
-        this.timePoints +=5
+      if(this.seconds == 1 || this.seconds == 2 ){
+        console.log("Very good! 10 points!")
+        this.timePoints +=10
       }
       else if(this.seconds <= 5){
-        console.log("added 2 points.")
+        console.log("under 5 sec! added 2 extra points.")
         this.timePoints +=2
+      }
+        else if(this.seconds <= 10){
+        console.log("10 sec! added 1 extra point.")
+        this.timePoints +=1
       }
     },
     emitToParent(event){
@@ -83,3 +87,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.timerBox{
+  color:navy;
+  font-size: 25px;
+  background: lightblue;
+}
+
+
+</style>

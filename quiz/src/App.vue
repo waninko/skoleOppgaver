@@ -73,7 +73,7 @@ export default {
       }
       this.submitAnswer = true
       this.numTotal++
-      if (this.numTotal == 5) {
+      if (this.numTotal == 10) {
         let promptName = prompt("Enter your name:")
         this.savedName = promptName
 

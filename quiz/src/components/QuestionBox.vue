@@ -1,16 +1,16 @@
 <template>
     <div class="question-box-container">
-  <b-jumbotron>
+  <b-jumbotron bg-variant="secondary" text-variant="white" border-variant="dark">
 
-    <template slot="lead">
+    <template slot="lead" >
       <!-- {{ currentQuestion.question }} span to avoid ascii issues-->
       <span v-html="currentQuestion.question"></span>
     </template>
 
     <hr class="my-4">
 
-    <b-list-group>
-      <b-list-group-item
+    <b-list-group class="questionText">
+      <b-list-group-item 
       v-for="(answer, index) in shuffledAnswers" 
       :key="index"
       @click="selectAnswer(index)"
@@ -23,13 +23,12 @@
     
 
     <b-button 
-    variant="primary"
+    variant="warning"
     @click="submitAnswer"
     :disabled="selectedIndex === null || answered"
     >Submit Answer
     </b-button>
 
-    <b-button @click="next" variant="success" >Next Question</b-button>
   </b-jumbotron>
 </div>
 </template>
@@ -133,6 +132,9 @@ export default{
 
 .btn {
   margin: 0 5px;
+}
+.questionText{
+  color: black;
 }
 
 </style>
