@@ -1,10 +1,15 @@
 <template>
-  <div class="yourScore">
-    <p>{{savedName}} - DU FIKK EN SCORE PÅ: {{ numCorrect }} - og TidsPoeng på {{timePoints}}</p>
-    <p>SAMLET: {{numCorrect + timePoints}}</p>
-    <button @click="addScore()">SUBMIT SCORE</button>
-    <table class="table table-striped">
-      <thead class="thead-light">
+  <div class="scoreBoard">
+    <div class="yourScore">
+    <div class="savedName">{{savedName}}</div> 
+    <p>AnswerScore:{{ numCorrect }}</p> 
+    <!-- <p>Timepoints:{{timePoints}}</p> -->
+    <div class="addedScore">Calculated Score: {{numCorrect + timePoints}}</div>
+    </div>
+    <button class="btn btn-outline-light btn-lg" @click="addScore()">SUBMIT SCORE</button>
+    <hr>
+    <table class="table table-striped table-dark table-bordered">
+      <thead class="thead-dark">
         <tr>
           <th>Place</th>
           <th>Score</th>
@@ -104,8 +109,20 @@ export default {
 </script>
 
 <style scoped>
+.scoreBoard{
+}
+.savedName{
+  color:yellow;
+}
 .yourScore {
-  color: red;
+  color: whitesmoke;
   font-size: 20px;
+  position: relative;
+  left:45px;
+}
+
+.addedScore{
+  position: relative;
+  right:45px;
 }
 </style>

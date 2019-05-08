@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app"> <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"  />
     <Timer 
     :timePoints ="timePoints"
     :index ="index"
@@ -7,7 +7,7 @@
     :showScores="showScores"
     v-on:childToParent="updateTimeScore"
     />
-    <Header :numCorrect="numCorrect" :numTotal="numTotal" :numWrong="numWrong"  />
+   
     
     <ScoreBoard
       v-if="showScores"
@@ -104,7 +104,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: whitesmoke;
   margin-top: 60px;
+  background-color:#2c3e50;
 }
 </style>

@@ -23,7 +23,7 @@
     
 
     <b-button 
-    variant="warning"
+    variant="info"
     @click="submitAnswer"
     :disabled="selectedIndex === null || answered"
     >Submit Answer

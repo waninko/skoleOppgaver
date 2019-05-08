@@ -1,15 +1,15 @@
 <template>
   <div>
-
-     <b-progress class="mt-2" :max="1" show-value>
-      <b-progress-bar :value="numTotal" variant="warning">Current Success: {{ calculateScore }}</b-progress-bar>
-      <b-progress-bar :value="numWrong" variant="secondary">Number of Errors: {{ errorPercent }} </b-progress-bar>
+<h3><b>-=Music Quiz=- </b></h3>
+     <b-progress class="mt-2" :max="1" height="2.75rem"  show-value>
+      <b-progress-bar  class="text-dark"  :value="numCorrect" variant="info" striped :animated="true"><h6><b>Current Success: {{ calculateScore }}</b></h6></b-progress-bar>
+      <b-progress-bar :value="numWrong" variant="secondary"><h6><b>Number of Errors: {{ errorPercent }}</b></h6> </b-progress-bar>
       </b-progress> 
-    <b-nav tabs>
-      <b-nav-item disabled><b>-=Music Quiz=- </b></b-nav-item>
-      <b-nav-item disabled>Questions Answered: {{ numTotal }}/10</b-nav-item>
-      <b-nav-item disabled>Current Score: {{ numCorrect }} </b-nav-item>
-       <b-nav-item disabled>Current Errors: {{ numWrong }}</b-nav-item>
+
+    <b-nav tabs align="center">
+      <b-nav-item disabled><div  class="navItem">Questions Answered: {{ numTotal }}/10</div></b-nav-item>
+      <b-nav-item disabled><div  class="navItem">Current Score: {{ numCorrect }} </div></b-nav-item>
+       <b-nav-item disabled><div  class="navItem">Current Errors: {{ numWrong }}</div></b-nav-item>
     </b-nav>
     
   
@@ -46,3 +46,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.navbar{
+  display: inline-block;
+  vertical-align: top;
+   text-align: center;
+}
+.navItem{
+  color:whitesmoke;
+}
+
+</style>

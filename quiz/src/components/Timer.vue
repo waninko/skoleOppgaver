@@ -2,8 +2,8 @@
   <div class="timerBox" id="timer">
     <span id="minutes">{{ minutes }}</span>
     <span id="middle">:</span>
-    <span id="seconds">{{ seconds }}</span><br>
-    <span id="seconds">  TimePoints: {{ timePoints }}</span>
+    <span id="seconds">{{ seconds }}</span>
+    <span id="timePoints">  TimePoints: {{ timePoints }}</span>
   </div>
 </template>
 
@@ -90,9 +90,21 @@ export default {
 
 <style scoped>
 .timerBox{
-  color:navy;
-  font-size: 25px;
-  background: lightblue;
+  font-size: 25px; 
+}
+#minutes, #middle, #seconds{
+  color:whitesmoke;
+  position: relative;
+  top: 50px;
+  left:25px;
+  float:left;
+}
+#timePoints{
+  color:whitesmoke;
+  float:right;
+  position: relative;
+  top: 50px;
+  right: 25px;
 }
 
 
