@@ -1,12 +1,21 @@
 <template>
   <div class="scoreBoard">
-    <div class="yourScore">
+<!-- 
+    <div class="yourScoreBig" v-responsive="['hidden-all','md','lg']">
     <div class="savedName">{{savedName}}</div> 
-    <p>AnswerScore:{{ numCorrect }}</p> 
-    <!-- <p>Timepoints:{{timePoints}}</p> -->
+    <div class="answerScore">AnswerScore:{{ numCorrect }}</div>
     <div class="addedScore">Calculated Score: {{numCorrect + timePoints}}</div>
-    </div>
-    <button class="btn btn-outline-light btn-lg" @click="addScore()">SUBMIT SCORE</button>
+    <button id="bigButton" class="btn btn-outline-light btn-lg" @click="addScore()">SUBMIT SCORE</button>
+    </div> -->
+    
+       <div class="yourScoreSmall" v-responsive="['hidden-all','xs','sm']">
+       <div class="savedNameSmall">{{savedName}}</div> 
+       <div class="answerScoreSmall">AnswerScore:{{ numCorrect }}</div>
+       <div class="addedScoreSmall">Calculated Score: {{numCorrect + timePoints}}</div>
+     <button class="btn btn-outline-light btn-xs" @click="addScore()">SUBMIT SCORE</button>
+    </div> 
+
+    
     <hr>
     <table class="table table-striped table-dark table-bordered">
       <thead class="thead-dark">
@@ -22,6 +31,10 @@
           <td>{{score.userScore}}</td>
           <td>{{score.name}}</td>
         </tr>
+
+
+
+
       </tbody>
     </table>
   </div>
@@ -30,6 +43,7 @@
 <script>
 import { db } from "../main";
 import _ from "lodash";
+import vueResponsive from "vue-responsive"
 
 export default {
   props: ["numCorrect", "savedName", "timePoints"],
@@ -109,20 +123,55 @@ export default {
 </script>
 
 <style scoped>
-.scoreBoard{
+.answerScore{
+  position:relative;
+  left:5px;
 }
 .savedName{
   color:yellow;
+  position:relative;
+  left:10px;
 }
-.yourScore {
+.addedScore{
+  position: relative;
+  right:45px;
+}
+.yourScoreBig {
   color: whitesmoke;
   font-size: 20px;
   position: relative;
   left:45px;
 }
-
-.addedScore{
+#bigButton{
   position: relative;
   right:45px;
+}
+
+
+.yourScoreSmall{
+  color:whitesmoke;
+}
+.savedNameSmall{
+  color:yellow;
+  position:relative;
+  left:30px;
+  top:40px;
+
+}
+.answerScoreSmall{
+  position: relative;
+  left:2px;
+  bottom:23px;
+}
+.addedScoreSmall{
+position:relative;
+  left:7px;
+  top:25px;
+}
+
+
+.btn{
+  position:relative;
+  top: 32px;
 }
 </style>

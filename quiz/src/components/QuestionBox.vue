@@ -1,14 +1,42 @@
 <template>
+<div>
+    <!-- <div class="bigQuestionbox" v-responsive="'hidden-xs'">
     <div class="question-box-container">
   <b-jumbotron bg-variant="secondary" text-variant="white" border-variant="dark">
+    <template slot="lead" >
+      <span v-html="currentQuestion.question"></span>
+    </template>
+    <hr class="my-4">
+    <b-list-group class="questionText">
+      <b-list-group-item 
+      v-for="(answer, index) in shuffledAnswers" 
+      :key="index"
+      @click="selectAnswer(index)"
+      :class="answerClass(index)"
+      >
+         <span v-html="answer"></span>
+      </b-list-group-item>
+    </b-list-group>
+    <b-button variant="info"
+    @click="submitAnswer"
+    :disabled="selectedIndex === null 
+    || answered">
+    Submit Answer</b-button>
+  </b-jumbotron>
+  </div>
+  </div> -->
 
+
+
+
+  <div class="smallQuestionbox" v-responsive="['hidden-all','xs','sm']">
+    <div class="question-box-container">
+  <b-jumbotron id="smallJumbo" bg-variant="secondary" text-variant="white" border-variant="dark">
     <template slot="lead" >
       <!-- {{ currentQuestion.question }} span to avoid ascii issues-->
       <span v-html="currentQuestion.question"></span>
     </template>
-
     <hr class="my-4">
-
     <b-list-group class="questionText">
       <b-list-group-item 
       v-for="(answer, index) in shuffledAnswers" 
@@ -20,21 +48,20 @@
          <span v-html="answer"></span>
       </b-list-group-item>
     </b-list-group>
-    
-
-    <b-button 
-    variant="info"
+    <b-button variant="info"
     @click="submitAnswer"
-    :disabled="selectedIndex === null || answered"
-    >Submit Answer
-    </b-button>
-
+    :disabled="selectedIndex === null 
+    || answered">
+    Submit Answer</b-button>
   </b-jumbotron>
+  </div>
+</div>
 </div>
 </template>
 
 <script >
 import _ from 'lodash'
+import vueResponsive from "vue-responsive"
 
 export default{
   props: {
@@ -137,4 +164,11 @@ export default{
   color: black;
 }
 
+#smallJumbo{
+  height: 490px;
+  width: 250px;;
+  position: relative;
+  top: 20px;
+  right: 55px;
+}
 </style>

@@ -15,6 +15,7 @@
     "lodash": "^4.17.11",
     "underscore": "^1.9.1",
     "vue": "^2.6.10",
+    "vue-responsive": "^1.0.2",
     "vue-router": "^3.0.6",
     "vuefire": "^1.4.5"
   },

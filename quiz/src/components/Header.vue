@@ -1,7 +1,7 @@
 <template>
   <div>
 <h3><b>-=Music Quiz=- </b></h3>
-     <b-progress class="mt-2" :max="1" height="2.75rem"  show-value>
+     <b-progress v-if="numTotal" class="mt-2" :max="1" height="2.75rem"  show-value>
       <b-progress-bar  class="text-dark"  :value="numCorrect" variant="info" striped :animated="true"><h6><b>Current Success: {{ calculateScore }}</b></h6></b-progress-bar>
       <b-progress-bar :value="numWrong" variant="secondary"><h6><b>Number of Errors: {{ errorPercent }}</b></h6> </b-progress-bar>
       </b-progress> 

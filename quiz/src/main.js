@@ -11,12 +11,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import App from './App.vue'
-import underscore from 'underscore'
+import responsive from 'vue-responsive'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(VueFire)
-Vue.use(underscore)
+Vue.use(responsive)
 
 firebase.initializeApp({
   projectId: 'musicquiz-3e9f4',

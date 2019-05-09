@@ -1,14 +1,31 @@
 <template>
-  <div class="timerBox" id="timer">
+  <div class="timerBox" id="timer" >
+
+<!--     
+    <div class="bigTimer" v-responsive="'hidden-xs'">
+    <div class="bigClock">
     <span id="minutes">{{ minutes }}</span>
     <span id="middle">:</span>
     <span id="seconds">{{ seconds }}</span>
-    <span id="timePoints">  TimePoints: {{ timePoints }}</span>
+    </div>
+    <span id="timePoints">TimePoints: {{ timePoints }}</span>
+    </div> -->
+
+    <div class="smallTimer" v-responsive="['hidden-all','xs','sm']">
+    <div class="smallClock">
+    <span id="smallMinutes">{{ minutes }}</span>
+    <span id="smallMiddle">:</span>
+    <span id="smallSeconds">{{ seconds }}</span>
+    </div>
+    <span id="smallTimePoints">TimePoints:{{ timePoints }}</span>
+    </div>
   </div>
+  
 </template>
 
 
 <script>
+import vueResponsive from "vue-responsive"
 export default {
   props: ["index", "showScores", "numCorrect"],
   data() {
@@ -96,7 +113,7 @@ export default {
   color:whitesmoke;
   position: relative;
   top: 50px;
-  left:25px;
+  left:600px;
   float:left;
 }
 #timePoints{
@@ -104,7 +121,21 @@ export default {
   float:right;
   position: relative;
   top: 50px;
-  right: 25px;
+  right: 520px;
+}
+
+#smallTimePoints{
+  font-size:15px;
+  float:right;
+  position: relative;
+  right: 20px;
+}
+
+.smallClock{
+  font-size: 15px;
+  float: left;
+  position: relative;
+  left: 40px;
 }
 
 
