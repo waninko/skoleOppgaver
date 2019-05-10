@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import QuestionBox from "./components/QuestionBox.vue";
-import ScoreBoard from "./components/ScoreBoard.vue";
-import Timer from "./components/Timer.vue";
+import Header from "./components/Header.vue"
+import QuestionBox from "./components/QuestionBox.vue"
+import ScoreBoard from "./components/ScoreBoard.vue"
+import Timer from "./components/Timer.vue"
 
 export default {
   name: "app",
