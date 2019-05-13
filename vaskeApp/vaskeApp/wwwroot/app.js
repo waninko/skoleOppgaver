@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "305cf4be7bb842e21bfc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6c976e44848f9a85dfc0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19166,49 +19166,6 @@ function applyToTag (styleElement, obj) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -19220,14 +19177,8 @@ function applyToTag (styleElement, obj) {
       vask: [],
       date: new Date().toISOString().slice(6, 10),
       flippedDate: null,
-      ukedagArray: [{
-        dag: 'mandag',
-        dato: this.date,
-        leilighet: 'C304',
-        tid: '14:00-16:00'
-      }],
-      tidsromArray: []
-
+      startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
+      vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
     };
   },
   created: function created() {
@@ -19280,13 +19231,27 @@ function applyToTag (styleElement, obj) {
       //--dagen som trykkes på skal få data om tid / dag fra to forskjellige arrays
 
     },
+    matchInnhold: function matchInnhold(str, arr) {
+      for (var i = 0; i != arr.length; i++) {
+        var match = arr[i];
+        if (str.indexOf(match) != -1) {
+          return match;
+        }
+      }
+      return null;
+    },
     dataFromDBtoTable: function dataFromDBtoTable() {
-      var testDate = "2019-03-03T10:00:00";
-      var firstDate = this.vask[0].vaskStart;
-      var includesWord = firstDate.includes("10:00");
-      if (firstDate == testDate && includesWord == true) {
+      var firstDate = this.vask[2].vaskStart;
+      //sjekke om tidspunktet som kommer inn finnes i arrayet
+      var finnes = this.matchInnhold(firstDate, this.startTidArray);
+
+      if (finnes) {
         document.getElementById("man10").innerHTML = this.vask[0].leilighetsNR;
-        console.log("added to table @ 10 O' clock");
+        console.log("array testing: " + finnes);
+
+        //koble mandag-søndag's rader med tidsArrayet
+
+        console.log("added to Monday table @" + finnes + "O' clock");
       } else {
         console.log("Something went wrong.");
       }
@@ -35019,38 +34984,105 @@ var render = function() {
   return _c("div", [
     _vm._v("\n  " + _vm._s(_vm.msg) + "\n  "),
     _c("div", [
-      _vm._m(0),
+      _c(
+        "table",
+        { staticClass: "tidsTabell" },
+        [
+          _vm._m(0),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("\n      " + _vm._s(tid) + " - ")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _c("table", { staticClass: "vaskeTabell" }, [
-        _c("tr", [
-          _c("th", [_vm._v("\n          MANDAG " + _vm._s(_vm.date))])
-        ]),
-        _c("tr", [_vm._v("LEDIG")]),
-        _vm._v(" "),
-        _c("tr", { attrs: { id: "man10" } }),
-        _vm._v(" "),
-        _c("tr", [_vm._v("LEDIG")]),
-        _vm._v(" "),
-        _c("tr", [_vm._v("LEDIG")]),
-        _vm._v(" "),
-        _c("tr", [_vm._v("LEDIG")]),
-        _vm._v(" "),
-        _c("tr", [_vm._v("LEDIG")]),
-        _vm._v(" "),
-        _c("tr", [_vm._v("LEDIG")])
-      ]),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _c("tr", [
+            _c("th", [_vm._v("\n          MANDAG " + _vm._s(_vm.date))])
+          ]),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          }),
+          _vm._v(" "),
+          _c("tr", { attrs: { id: "man10" } })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(1),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(2),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(2),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(3),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(3),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(4),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(4),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(5),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(5),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm._m(6),
+      _c(
+        "table",
+        { staticClass: "vaskeTabell" },
+        [
+          _vm._m(6),
+          _vm._l(_vm.startTidArray, function(tid) {
+            return _c("tr", [_vm._v("*")])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c(
         "table",
@@ -35090,149 +35122,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "tidsTabell" }, [
-      _c("tr", [_c("th", [_vm._v("TIDSROM")])]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("08:00 - 10:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("10:00 - 12:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("12:00 - 14:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("14:00 - 16:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("16:00 - 18:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("18:00 - 20:00")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("20:00 - 22:00")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("TIDSROM")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("TIRSDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("TIRSDAG")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("ONSDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("ONSDAG")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("TORSDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("TORSDAG")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("FREDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("FREDAG")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("LØRDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("LØRDAG")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vaskeTabell" }, [
-      _c("tr", [_c("th", [_vm._v("SØNDAG")])]),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")]),
-      _vm._v(" "),
-      _c("tr", [_vm._v("LEDIG")])
-    ])
+    return _c("tr", [_c("th", [_vm._v("SØNDAG")])])
   }
 ]
 render._withStripped = true

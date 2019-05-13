@@ -5,92 +5,49 @@
       <table class="tidsTabell">
         <tr>
           <th>TIDSROM</th>
-        </tr>
-        <tr>08:00 - 10:00</tr>
-        <tr>10:00 - 12:00</tr>
-        <tr>12:00 - 14:00</tr>
-        <tr>14:00 - 16:00</tr>
-        <tr>16:00 - 18:00</tr>
-        <tr>18:00 - 20:00</tr>
-        <tr>20:00 - 22:00</tr>
+
+
+        <tr v-for="tid in startTidArray" >
+        {{tid}} - </tr>
+       
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>
             MANDAG {{date}}</th>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
         <tr id="man10"></tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+       
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>TIRSDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>ONSDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>TORSDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>FREDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>LØRDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>SØNDAG</th>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
-        <tr>LEDIG</tr>
+        <tr v-for="tid in startTidArray">*</tr>
       </table>
       <table class="testTabell">
         <p>Data fra DB:</p>
@@ -117,15 +74,8 @@ export default {
       vask: [],
       date: new Date().toISOString().slice(6, 10),
       flippedDate: null,
-      ukedagArray: [{
-        dag: 'mandag',
-        dato:this.date,
-        leilighet: 'C304',
-        tid:'14:00-16:00'
-      }],
-      tidsromArray: [],
-      
-      
+      startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
+      vaskSlutt: [ "10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
     }
     },
     created() {
@@ -159,13 +109,27 @@ export default {
         //--dagen som trykkes på skal få data om tid / dag fra to forskjellige arrays
 
       },
+      matchInnhold(str, arr) {
+       for (var i = 0; i != arr.length; i++) {
+      var match = arr[i];
+      if (str.indexOf(match) != - 1) {
+        return match;
+      }
+    }
+    return null;
+  },
       dataFromDBtoTable() {
-        let testDate = "2019-03-03T10:00:00"
-        let firstDate = this.vask[0].vaskStart
-        let includesWord = firstDate.includes("10:00")
-        if (firstDate == testDate && includesWord == true) {
+        let firstDate = this.vask[2].vaskStart
+        //sjekke om tidspunktet som kommer inn finnes i arrayet
+        let finnes = this.matchInnhold(firstDate, this.startTidArray)
+        
+        if (finnes) {
           document.getElementById("man10").innerHTML = this.vask[0].leilighetsNR
-          console.log("added to table @ 10 O' clock")
+          console.log("array testing: " + finnes)
+
+          //koble mandag-søndag's rader med tidsArrayet
+
+          console.log("added to Monday table @" + finnes +  "O' clock")
         }
         else {console.log("Something went wrong.")}
 
