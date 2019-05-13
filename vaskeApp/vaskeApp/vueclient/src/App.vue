@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Vaskeliste />
-    <router-view />
     <OpprettVask v-if="OpprettVask "/>
     <EndreVask v-if="EndreVask "/>
     <button @click="leggtilVask()">Sett opp Vask</button@click:>
