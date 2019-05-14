@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6c976e44848f9a85dfc0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0433142c16af4c4e74a1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19249,7 +19249,11 @@ function applyToTag (styleElement, obj) {
         document.getElementById("man10").innerHTML = this.vask[0].leilighetsNR;
         console.log("array testing: " + finnes);
 
+        var findFinnesIndex = this.startTidArray.indexOf(finnes);
+        console.log("indexen til " + finnes + " er: " + findFinnesIndex);
+
         //koble mandag-søndag's rader med tidsArrayet
+
 
         console.log("added to Monday table @" + finnes + "O' clock");
       } else {
@@ -35003,8 +35007,10 @@ var render = function() {
           _c("tr", [
             _c("th", [_vm._v("\n          MANDAG " + _vm._s(_vm.date))])
           ]),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", [_vm._v("*")])
+          _vm._l(_vm.startTidArray, function(tid, index) {
+            return _c("tr", { attrs: { id: "mandag" } }, [
+              _vm._v("*" + _vm._s(index))
+            ])
           }),
           _vm._v(" "),
           _c("tr", { attrs: { id: "man10" } })

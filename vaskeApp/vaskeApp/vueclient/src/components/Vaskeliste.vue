@@ -15,7 +15,7 @@
         <tr>
           <th>
             MANDAG {{date}}</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="mandag" v-for="(tid, index) in startTidArray">*{{index}}</tr>
         <tr id="man10"></tr>
        
       </table>
@@ -127,8 +127,13 @@ export default {
           document.getElementById("man10").innerHTML = this.vask[0].leilighetsNR
           console.log("array testing: " + finnes)
 
+          let findFinnesIndex = this.startTidArray.indexOf(finnes)
+          console.log("indexen til " +finnes+ " er: " + findFinnesIndex)
+          
           //koble mandag-søndag's rader med tidsArrayet
 
+
+            
           console.log("added to Monday table @" + finnes +  "O' clock")
         }
         else {console.log("Something went wrong.")}
