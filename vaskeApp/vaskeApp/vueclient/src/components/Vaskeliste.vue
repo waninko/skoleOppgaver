@@ -6,48 +6,51 @@
         <tr>
           <th>TIDSROM</th>
 
+        <tr v-for="tid in startTidArray">
+          {{tid}} +2t
+        </tr>
 
-        <tr v-for="tid in startTidArray" >
-        {{tid}} - </tr>
-       
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>
-            MANDAG {{date}}</th>
-        <tr id="mandag" v-for="(tid, index) in startTidArray">*{{index}}</tr>
+            MANDAG {{date}}
+          </th>
+        <tr id="mandag" v-for="(tid, index) in startTidArray"  v-bind:id="tid.index"
+                        v-on:click="velgTid(tid)"
+            >index: {{index}}</tr>
         <tr id="man10"></tr>
-       
+
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>TIRSDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="tirsdag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>ONSDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="onsdag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>TORSDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="torsdag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>FREDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="fredag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>LØRDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="lørdag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="vaskeTabell">
         <tr>
           <th>SØNDAG</th>
-        <tr v-for="tid in startTidArray">*</tr>
+        <tr id="søndag" v-for="tid in startTidArray">*</tr>
       </table>
       <table class="testTabell">
         <p>Data fra DB:</p>
@@ -62,21 +65,20 @@
     <button @click="getDates()">console.log</button>
   </div>
 </template>
-
 <script>
   import axios from 'axios'
 
-export default {
-  name: 'Vaskeliste',
-  data () {
-    return {
-      msg: "Her kommer en liste over vask..?",
-      vask: [],
-      date: new Date().toISOString().slice(6, 10),
-      flippedDate: null,
-      startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
-      vaskSlutt: [ "10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
-    }
+  export default {
+    name: 'Vaskeliste',
+    data() {
+      return {
+        msg: "Her kommer en liste over vask..?",
+        vask: [],
+        date: new Date().toISOString().slice(6, 10),
+        flippedDate: null,
+        startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
+        vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+      }
     },
     created() {
       const self = this;
@@ -91,15 +93,18 @@ export default {
         .catch(function (error) {
           console.log("Her gikk det galt: " + error)
         })
-      
+
     },
     methods: {
+      velgTid(e) {
+        console.log(e)
+      },
       getDates() {
         //let today = (new Date());
-        console.log("dateFromDB: " + this.vask[0].vaskStart)
+        //console.log("dateFromDB: " + this.vask[0].vaskStart)
         this.dataFromDBtoTable()
         //let tomorrow = (new Date()).add(1, 'days');
-        
+
       },
       getCurrentWeek() {
         //med moment(isoweek)..? dytte dager i et array etter uke#
@@ -110,46 +115,55 @@ export default {
 
       },
       matchInnhold(str, arr) {
-       for (var i = 0; i != arr.length; i++) {
-      var match = arr[i];
-      if (str.indexOf(match) != - 1) {
-        return match;
-      }
-    }
-    return null;
-  },
+        for (var i = 0; i != arr.length; i++) {
+          var match = arr[i];
+          if (str.indexOf(match) != - 1) {
+            return match;
+          }
+        }
+        return null;
+      },
+
+
       dataFromDBtoTable() {
-        let firstDate = this.vask[2].vaskStart
+        let incomingVask = this.vask[2] //prøver med én spesifik først
+        let vaskStart = incomingVask.vaskStart
+        let leilighetsNR = incomingVask.leilighetsNR
+        console.log("incoming vask: " + incomingVask)
+
         //sjekke om tidspunktet som kommer inn finnes i arrayet
-        let finnes = this.matchInnhold(firstDate, this.startTidArray)
-        
+        let finnes = this.matchInnhold(vaskStart, this.startTidArray)
+
         if (finnes) {
-          document.getElementById("man10").innerHTML = this.vask[0].leilighetsNR
-          console.log("array testing: " + finnes)
+          document.getElementById("man10").innerHTML = leilighetsNR
+          console.log("Tidspunkt fra string som matcher tidsArrayet: " + finnes)
 
           let findFinnesIndex = this.startTidArray.indexOf(finnes)
-          console.log("indexen til " +finnes+ " er: " + findFinnesIndex)
-          
+          console.log("indexen til " + finnes + "i arrayet er: " + findFinnesIndex)
+
           //koble mandag-søndag's rader med tidsArrayet
+          //--få tak i indexene i mandagstabellen
 
 
-            
-          console.log("added to Monday table @" + finnes +  "O' clock")
+
+          console.log("added to Monday table @" + finnes + "O' clock")
         }
-        else {console.log("Something went wrong.")}
+        else { console.log("Something went wrong.") }
 
-        
+
       },
-      pushTODB(){
+
+
+
+      pushTODB() {
         //slå sammen dato+tid før push - i riktig format YYYY-MM-DD + time HH.MM.SS
       }
 
 
-      
-   }
-}
-</script>
 
+    }
+  }
+</script>
 <style scoped>
 
   .tidsTabell {
@@ -157,19 +171,21 @@ export default {
     border: 1px solid black;
     display: inline-block;
   }
+
   .vaskeTabell {
     text-align: center;
     border: 1px solid black;
     display: inline-block;
     float: left;
   }
-  .testTabell{
+
+  .testTabell {
     position: relative;
     top: 120px;
     float: left;
   }
+
   th, tr, td {
     border: 1px solid black;
   }
-
 </style>

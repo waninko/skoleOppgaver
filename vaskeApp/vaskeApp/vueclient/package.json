@@ -1,7 +1,7 @@
 {
   "name": "vueclient",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Vaskeliste App",
   "author": "Linn Eidsten",
   "private": true,
   "scripts": {

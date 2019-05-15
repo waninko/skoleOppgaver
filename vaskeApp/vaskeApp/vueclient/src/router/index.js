@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Moment from 'moment'
+
 
 
 Vue.filter('formatDate', function (value) {

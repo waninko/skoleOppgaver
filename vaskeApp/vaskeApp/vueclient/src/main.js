@@ -3,7 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueMoment from 'vue-moment'
+import moment from 'moment'
 
+Vue.use(moment)
 
 Vue.config.productionTip = false
 

@@ -3,7 +3,7 @@
     <Vaskeliste />
     <OpprettVask v-if="OpprettVask "/>
     <EndreVask v-if="EndreVask "/>
-    <button @click="leggtilVask()">Sett opp Vask</button@click:>
+    <button @click="leggtilVask()">Sett opp Vask</button>
     <button @click="redigerVask()">Endre Vask</button>
   </div>
 </template>
