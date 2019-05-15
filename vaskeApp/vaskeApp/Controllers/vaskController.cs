@@ -27,7 +27,8 @@ namespace vaskeApp.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Vask>> GetVask()
         {
-            return _context.vaskOversikt.ToList();
+        
+            return _context.vaskeTabell.ToList();
 
         }
         //public async Task<ActionResult<Vask>> Get()
@@ -37,10 +38,10 @@ namespace vaskeApp.Controllers
 
         // GET api/vask/spesifik vaskID
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vask>> GetVask(long id)
+        public async Task<ActionResult<Vask>> GetVask(int id)
         {
             //return "value";
-            return await _context.vaskOversikt.FindAsync(id);
+            return await _context.vaskeTabell.FindAsync(id);
             
         }
 
@@ -48,7 +49,7 @@ namespace vaskeApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Vask>>PostVask(Vask vask)
         {
-            _context.vaskOversikt.Add(vask);
+            _context.vaskeTabell.Add(vask);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetVask), new { id = vask.vaskID }, vask);
@@ -57,15 +58,15 @@ namespace vaskeApp.Controllers
 
         // PUT api/vask/ id på vask du vil endre
         [HttpPut("{id}")]
-        public async Task<ActionResult<Vask>>UpdateVask(long id, Vask vask)
+        public async Task<ActionResult<Vask>>UpdateVask(int id, Vask vask)
          {
-             var exists = await _context.vaskOversikt.AnyAsync(v => v.vaskID == id);
+             var exists = await _context.vaskeTabell.AnyAsync(v => v.vaskID == id);
              if (!exists)
                 {
                   return NotFound();
                 }
 
-            _context.vaskOversikt.Update(vask);
+            _context.vaskeTabell.Update(vask);
 
             await _context.SaveChangesAsync();
 
@@ -75,11 +76,11 @@ namespace vaskeApp.Controllers
 
         // DELETE api/vask/ id på vask som skal slettes
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(long id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var valgtVask = await _context.vaskOversikt.FindAsync(id);
+            var valgtVask = await _context.vaskeTabell.FindAsync(id);
 
-            _context.vaskOversikt.Remove(valgtVask);
+            _context.vaskeTabell.Remove(valgtVask);
 
             await _context.SaveChangesAsync();
 

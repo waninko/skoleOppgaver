@@ -17,6 +17,7 @@ namespace vaskeApp.Models
             //builder.Entity<vaskOversikt>().ToTable("vaskOversikt");
         }
 
-        public DbSet<Vask> vaskOversikt{ get; set; }
+        //public DbSet<Vask> vaskOversikt{ get; set; }
+        public DbSet<Vask> vaskeTabell { get; set; }
     }
 }

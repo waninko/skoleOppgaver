@@ -13,7 +13,7 @@
         <tbody>
           <tr v-for="(tid, tid_index) in startTidArray" :key="tid">
             <td>{{ tid }}</td>
-            <td v-for="(dag, dag_index) in dagArray" @click="alert(tid_index, dag_index)">tid/dag</td>
+            <td v-for="(dag, dag_index) in dagArray" @click="velg(tid_index, dag_index)">{{testNR}}</td>
           </tr>
         </tbody>
       </table>
@@ -29,7 +29,7 @@
       <td>{{ vask.vaskStart}}</td>
     </tr>
   </table>-->
-
+      {{test}}
     </div>
     <button @click="getDates()">console.log</button>
   </div>
@@ -49,7 +49,8 @@
         startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
        // vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
         testNR: "",
-        isMatch: true
+        isMatch: true,
+        test: "Valgt dag + tid: "
       }
     },
     created() {
@@ -68,15 +69,16 @@
 
     },
     methods: {
-      alert(tid_index, dag_index) {
+      velg(tid_index, dag_index) {
         let tid = this.startTidArray[tid_index]
         let dag = this.dagArray[dag_index]
 
-        alert(tid + dag)
+        
+        this.test= "Valgt dag + tid: " + " klokken " + tid + " på " + dag
       },
-      velgTid(e) {
-        console.log(e)
-      },
+      //velgTid(e) {
+      //  console.log(e)
+      //},
       getDates() {
         //let today = (new Date());
         //console.log("dateFromDB: " + this.vask[0].vaskStart)
@@ -104,13 +106,14 @@
 
 
       dataFromDBtoTable() {
-        let incomingVask = this.vask[2] //prøver med én spesifik først
+        let incomingVask = this.vask[0] //prøver med én spesifik først
         let vaskStart = incomingVask.vaskStart
         let leilighetsNR = incomingVask.leilighetsNR
+        let dag = incomingVask.dag
         console.log("incoming vask: " + incomingVask)
+        console.log("vask dag: " + dag)
         this.testNR = leilighetsNR //tester å sende "inkommet" l.Nr opp i data, og printe ut dét
-
-
+        
 
         //sjekke om tidspunktet som kommer inn finnes i arrayet
         let finnes = this.matchInnhold(vaskStart, this.startTidArray)
@@ -126,18 +129,11 @@
           //klokkeslettet som ligger i findFinnesIndex er:
           let klokkeslett = this.startTidArray[findFinnesIndex];
           console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett)
-
-          //klokkeslettet som ligger i mandag er..? i arrayet. på hver sin index.hvordan få tak i at de ligger under id'en "mandag"?
-          let mandagTider = this.
-          console.log("mandag: " + mandag)
+          
          
           //bare printe ut romNR der klokkeslett matcher klokkeslettet i mandag(fFindex sitt klokkeslett)
           
-
-
-
-          //koble mandag-søndag's rader med tidsArrayet
-          //--få tak i indexene i mandagstabellen
+          
           
           console.log("added to Monday table @" + finnes + "O' clock")
         }
