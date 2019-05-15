@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0b588ded34d8f78ecfc9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "359755d7e1d5d1664fc5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19137,37 +19137,6 @@ function applyToTag (styleElement, obj) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -19178,9 +19147,12 @@ function applyToTag (styleElement, obj) {
       msg: "Her kommer en liste over vask..?",
       vask: [],
       date: new Date().toISOString().slice(6, 10),
-      flippedDate: null,
+      //flippedDate: null,
+      dagArray: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
       startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
-      vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+      // vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+      testNR: "",
+      isMatch: true
     };
   },
   created: function created() {
@@ -19219,6 +19191,22 @@ function applyToTag (styleElement, obj) {
   },
 
   methods: {
+    alert: function (_alert) {
+      function alert(_x, _x2) {
+        return _alert.apply(this, arguments);
+      }
+
+      alert.toString = function () {
+        return _alert.toString();
+      };
+
+      return alert;
+    }(function (tid_index, dag_index) {
+      var tid = this.startTidArray[tid_index];
+      var dag = this.dagArray[dag_index];
+
+      alert(tid + dag);
+    }),
     velgTid: function velgTid(e) {
       console.log(e);
     },
@@ -19250,20 +19238,32 @@ function applyToTag (styleElement, obj) {
       var vaskStart = incomingVask.vaskStart;
       var leilighetsNR = incomingVask.leilighetsNR;
       console.log("incoming vask: " + incomingVask);
+      this.testNR = leilighetsNR; //tester å sende "inkommet" l.Nr opp i data, og printe ut dét
+
 
       //sjekke om tidspunktet som kommer inn finnes i arrayet
       var finnes = this.matchInnhold(vaskStart, this.startTidArray);
 
       if (finnes) {
-        document.getElementById("man10").innerHTML = leilighetsNR;
-        console.log("Tidspunkt fra string som matcher tidsArrayet: " + finnes);
+        this.isMatch = true;
+
+        // document.getElementById("man10").innerHTML = leilighetsNR
+        console.log("Tidspunkt fra STRING fra db som matcher tidsARRAYet: " + finnes);
 
         var findFinnesIndex = this.startTidArray.indexOf(finnes);
         console.log("indexen til " + finnes + "i arrayet er: " + findFinnesIndex);
+        //klokkeslettet som ligger i findFinnesIndex er:
+        var klokkeslett = this.startTidArray[findFinnesIndex];
+        console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett);
+
+        //klokkeslettet som ligger i mandag er..? i arrayet. på hver sin index.hvordan få tak i at de ligger under id'en "mandag"?
+        var mandagTider = this.console.log("mandag: " + mandag);
+
+        //bare printe ut romNR der klokkeslett matcher klokkeslettet i mandag(fFindex sitt klokkeslett)
+
 
         //koble mandag-søndag's rader med tidsArrayet
         //--få tak i indexene i mandagstabellen
-
 
         console.log("added to Monday table @" + finnes + "O' clock");
       } else {
@@ -35006,139 +35006,52 @@ var render = function() {
   return _c("div", [
     _vm._v("\n  " + _vm._s(_vm.msg) + "\n  "),
     _c("div", [
-      _c(
-        "table",
-        { staticClass: "tidsTabell" },
-        [
-          _vm._m(0),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", [
-              _vm._v("\n        " + _vm._s(tid) + " +2t\n      ")
-            ])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _c("tr", [
-            _c("th", [
-              _vm._v("\n          MANDAG " + _vm._s(_vm.date) + "\n        ")
-            ])
-          ]),
-          _vm._l(_vm.startTidArray, function(tid, index) {
+      _c("table", { staticClass: "vaskeTabell" }, [
+        _c("thead", [
+          _c(
+            "tr",
+            [
+              _c("th", [_vm._v("Tid/Dag")]),
+              _vm._v(" "),
+              _vm._l(_vm.dagArray, function(dag) {
+                return _c("th", { attrs: { width: "50" } }, [
+                  _vm._v(_vm._s(dag) + " - " + _vm._s(_vm.date))
+                ])
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.startTidArray, function(tid, tid_index) {
             return _c(
               "tr",
-              {
-                attrs: { id: "mandag", id: tid.index },
-                on: {
-                  click: function($event) {
-                    return _vm.velgTid(tid)
-                  }
-                }
-              },
-              [_vm._v("index: " + _vm._s(index))]
+              { key: tid },
+              [
+                _c("td", [_vm._v(_vm._s(tid))]),
+                _vm._v(" "),
+                _vm._l(_vm.dagArray, function(dag, dag_index) {
+                  return _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.alert(tid_index, dag_index)
+                        }
+                      }
+                    },
+                    [_vm._v("tid/dag")]
+                  )
+                })
+              ],
+              2
             )
           }),
-          _vm._v(" "),
-          _c("tr", { attrs: { id: "man10" } })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(1),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "tirsdag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(2),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "onsdag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(3),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "torsdag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(4),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "fredag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(5),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "lørdag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "vaskeTabell" },
-        [
-          _vm._m(6),
-          _vm._l(_vm.startTidArray, function(tid) {
-            return _c("tr", { attrs: { id: "søndag" } }, [_vm._v("*")])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "testTabell" },
-        [
-          _c("p", [_vm._v("Data fra DB:")]),
-          _vm._v(" "),
-          _vm._l(_vm.vask, function(vask) {
-            return _c("tr", [
-              _c("td", [_vm._v(_vm._s(vask.leilighetsNR))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(" ..dato..")]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(vask.vaskStart))])
-            ])
-          })
-        ],
-        2
-      )
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c(
@@ -35154,50 +35067,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("TIDSROM")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("TIRSDAG")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("ONSDAG")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("TORSDAG")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("FREDAG")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("LØRDAG")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("th", [_vm._v("SØNDAG")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

@@ -2,64 +2,33 @@
   <div>
     {{msg}}
     <div>
-      <table class="tidsTabell">
-        <tr>
-          <th>TIDSROM</th>
 
-        <tr v-for="tid in startTidArray">
-          {{tid}} +2t
-        </tr>
+      <table class="vaskeTabell">
+        <thead>
+          <tr>
+            <th>Tid/Dag</th>
+            <th v-for="dag in dagArray" width="50">{{ dag }} - {{date}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(tid, tid_index) in startTidArray" :key="tid">
+            <td>{{ tid }}</td>
+            <td v-for="(dag, dag_index) in dagArray" @click="alert(tid_index, dag_index)">tid/dag</td>
+          </tr>
+        </tbody>
+      </table>
 
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>
-            MANDAG {{date}}
-          </th>
-        <tr id="mandag" v-for="(tid, index) in startTidArray"  v-bind:id="tid.index"
-                        v-on:click="velgTid(tid)"
-            >index: {{index}}</tr>
-        <tr id="man10"></tr>
 
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>TIRSDAG</th>
-        <tr id="tirsdag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>ONSDAG</th>
-        <tr id="onsdag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>TORSDAG</th>
-        <tr id="torsdag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>FREDAG</th>
-        <tr id="fredag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>LØRDAG</th>
-        <tr id="lørdag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="vaskeTabell">
-        <tr>
-          <th>SØNDAG</th>
-        <tr id="søndag" v-for="tid in startTidArray">*</tr>
-      </table>
-      <table class="testTabell">
-        <p>Data fra DB:</p>
-        <tr v-for="vask in vask">
-          <td>{{ vask.leilighetsNR}}</td>
-          <td> ..dato..</td>
-          <td>{{ vask.vaskStart}}</td>
-        </tr>
-      </table>
+
+
+      <!--<table class="testTabell">
+    <p>Data fra DB:</p>
+    <tr v-for="vask in vask">
+      <td>{{ vask.leilighetsNR}}</td>
+      <td> ..dato..</td>
+      <td>{{ vask.vaskStart}}</td>
+    </tr>
+  </table>-->
 
     </div>
     <button @click="getDates()">console.log</button>
@@ -75,9 +44,12 @@
         msg: "Her kommer en liste over vask..?",
         vask: [],
         date: new Date().toISOString().slice(6, 10),
-        flippedDate: null,
+        //flippedDate: null,
+        dagArray: ["Mandag" , "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
         startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
-        vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+       // vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+        testNR: "",
+        isMatch: true
       }
     },
     created() {
@@ -96,6 +68,12 @@
 
     },
     methods: {
+      alert(tid_index, dag_index) {
+        let tid = this.startTidArray[tid_index]
+        let dag = this.dagArray[dag_index]
+
+        alert(tid + dag)
+      },
       velgTid(e) {
         console.log(e)
       },
@@ -130,22 +108,37 @@
         let vaskStart = incomingVask.vaskStart
         let leilighetsNR = incomingVask.leilighetsNR
         console.log("incoming vask: " + incomingVask)
+        this.testNR = leilighetsNR //tester å sende "inkommet" l.Nr opp i data, og printe ut dét
+
+
 
         //sjekke om tidspunktet som kommer inn finnes i arrayet
         let finnes = this.matchInnhold(vaskStart, this.startTidArray)
 
         if (finnes) {
-          document.getElementById("man10").innerHTML = leilighetsNR
-          console.log("Tidspunkt fra string som matcher tidsArrayet: " + finnes)
+          this.isMatch = true 
+
+         // document.getElementById("man10").innerHTML = leilighetsNR
+          console.log("Tidspunkt fra STRING fra db som matcher tidsARRAYet: " + finnes)
 
           let findFinnesIndex = this.startTidArray.indexOf(finnes)
           console.log("indexen til " + finnes + "i arrayet er: " + findFinnesIndex)
+          //klokkeslettet som ligger i findFinnesIndex er:
+          let klokkeslett = this.startTidArray[findFinnesIndex];
+          console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett)
+
+          //klokkeslettet som ligger i mandag er..? i arrayet. på hver sin index.hvordan få tak i at de ligger under id'en "mandag"?
+          let mandagTider = this.
+          console.log("mandag: " + mandag)
+         
+          //bare printe ut romNR der klokkeslett matcher klokkeslettet i mandag(fFindex sitt klokkeslett)
+          
+
+
 
           //koble mandag-søndag's rader med tidsArrayet
           //--få tak i indexene i mandagstabellen
-
-
-
+          
           console.log("added to Monday table @" + finnes + "O' clock")
         }
         else { console.log("Something went wrong.") }
