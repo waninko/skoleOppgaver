@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "75c221dea28ec5a672ac"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "107f0838d2fc3d15737c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19159,11 +19159,6 @@ function applyToTag (styleElement, obj) {
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -19172,30 +19167,45 @@ function applyToTag (styleElement, obj) {
   data: function data() {
     return {
       msg: "Her kommer en liste over vask..?",
-      vask: [],
+      dummyCounter: 0,
+      allData: [{ tid: '08:00', items: ['', '', '', '', '', '', ''] }, { tid: '10:00', items: ['', '', '', '', '', '', ''] }, { tid: '12:00', items: ['', '', '', '', '', '', ''] }, { tid: '14:00', items: ['', '', '', '', '', '', ''] }, { tid: '16:00', items: ['', '', '', '', '', '', ''] }, { tid: '18:00', items: ['', '', '', '', '', '', ''] }, { tid: '20:00', items: ['', '', '', '', '', '', ''] }, { tid: '22:00', items: ['', '', '', '', '', '', ''] }],
+      dbVaskArray: [],
+      dagIndexes: { Mandag: 0, Tirsdag: 1, Onsdag: 2, Torsdag: 3, Fredag: 4, Lørdag: 5, Søndag: 6 },
       date: new Date().toISOString().slice(6, 10),
       //flippedDate: null,
       dagArray: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
-      startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
-      // vaskSlutt: ["10: 00", "12: 00", "14: 00", "16: 00", "18: 00", "20: 00", "24:00"]
+      //startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
       testNR: "",
-      isMatch: true,
+      isMatch: false,
       test: "Valgt dag + tid: "
     };
   },
   created: function created() {
-    var self = this;
+    //for (let time = 8; time <= 22; time += 2) {
+    //  this.allData.push({ tid: (time + 100 + ':00').substr(1), items: ['','','','','','','']});
+    //}
+    //console.log("allData: " + JSON.stringify( this.allData));
 
-    __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("/api/vask").then(function (response) {
+    __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("/api/vask").then(this.handleData).catch(function (error) {
+      console.log("Her gikk det galt: " + error);
+    });
+  },
+
+  methods: {
+    handleData: function handleData(response) {
+      console.log('handleData', response.data);
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
         for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(response.data), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var vask = _step.value;
+          var booking = _step.value;
 
-          self.vask.push(vask);
+          this.dbVaskArray.push(booking);
+          var tidIndex = (booking.vaskStart.substr(0, 2) - 8) / 2;
+          var dagIndex = this.dagIndexes[booking.dag];
+          this.allData[tidIndex].items[dagIndex] = booking.leilighetsNR;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -19212,23 +19222,19 @@ function applyToTag (styleElement, obj) {
         }
       }
 
+      this.dummyCounter++;
       console.log("dette ligger i response: " + __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_json_stringify___default()(response.data));
-    }).catch(function (error) {
-      console.log("Her gikk det galt: " + error);
-    });
-  },
-
-  methods: {
-    velg: function velg(tid_index, dag_index) {
-      var tid = this.startTidArray[tid_index];
-      var dag = this.dagArray[dag_index];
-
-      this.test = "Valgt dag + tid: " + " klokken " + tid + " på " + dag;
+      console.log("dette ligger i this.allData: ", this.allData);
     },
+    velg: function velg(tid, dagIndex) {
+      var valgtTid = this.startTidArray[tid];
+      var valgtDag = this.dagArray[dagIndex];
 
-    //velgTid(e) {
-    //  console.log(e)
-    //},
+      this.test = "Valgt dag + tid: " + " klokken " + valgtTid + " på " + valgtDag;
+    },
+    velgTid: function velgTid(e) {
+      console.log(e);
+    },
     getDates: function getDates() {
       //let today = (new Date());
       //console.log("dateFromDB: " + this.vask[0].vaskStart)
@@ -19236,7 +19242,7 @@ function applyToTag (styleElement, obj) {
       //let tomorrow = (new Date()).add(1, 'days');
     },
     getCurrentWeek: function getCurrentWeek() {
-      //med moment(isoweek)..? dytte dager i et array etter uke#
+      //med moment(isoweek)..?
     },
     setDateTime: function setDateTime() {
       //et array per dag+dato, indexene koblet til klokkeslett
@@ -19253,41 +19259,51 @@ function applyToTag (styleElement, obj) {
       return null;
     },
     dataFromDBtoTable: function dataFromDBtoTable() {
-      var incomingVask = this.vask[0]; //prøver med én spesifik først
-      var vaskStart = incomingVask.vaskStart;
-      var leilighetsNR = incomingVask.leilighetsNR;
-      var dag = incomingVask.dag;
-      console.log("incoming vask: " + incomingVask);
-      console.log("vask dag: " + dag);
-      this.testNR = leilighetsNR; //tester å sende "inkommet" l.Nr opp i data, og printe ut dét
+      //let incomingVask = this.dbVaskArray[0] //prøver med én spesifik først
+      //let vaskStart = incomingVask.vaskStart
+      //let leilighetsNR = incomingVask.leilighetsNR
+      //let dag = incomingVask.dag
 
 
-      //sjekke om tidspunktet som kommer inn finnes i arrayet
-      var finnes = this.matchInnhold(vaskStart, this.startTidArray);
-
-      if (finnes) {
-        this.isMatch = true;
-
-        // document.getElementById("man10").innerHTML = leilighetsNR
-        console.log("Tidspunkt fra STRING fra db som matcher tidsARRAYet: " + finnes);
-
-        var findFinnesIndex = this.startTidArray.indexOf(finnes);
-        console.log("indexen til " + finnes + "i arrayet er: " + findFinnesIndex);
-        //klokkeslettet som ligger i findFinnesIndex er:
-        var klokkeslett = this.startTidArray[findFinnesIndex];
-        console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett);
-
-        //bare printe ut romNR der klokkeslett matcher klokkeslettet i mandag(fFindex sitt klokkeslett)
+      //console.log("incoming vask: " + incomingVask)
+      //console.log("vask dag: " + dag)
+      //this.testNR = leilighetsNR //tester å sende "inkommet" leil.Nr opp i data, og printe ut dét
 
 
-        console.log("added to Monday table @" + finnes + "O' clock");
-      } else {
-        console.log("Something went wrong.");
-      }
+      ////sjekke om tidspunktet som kommer inn finnes i tid arrayet
+      //let tidFinnes = this.matchInnhold(vaskStart, this.startTidArray)
+      //let dagFinnes = this.matchInnhold(dag, this.dagArray)
+
+      //if (tidFinnes && dagFinnes) {
+      //  this.isMatch = true
+
+      // // document.getElementById("man10").innerHTML = leilighetsNR
+      //  console.log("Tidspunkt fra vaskArray som matcher tidsArray: " + tidFinnes)
+
+      //  let findFinnesIndex = this.startTidArray.indexOf(tidFinnes)
+      //  let findDagIndex = this.dagArray.indexOf(dagFinnes)
+      //  console.log("indexen til " + tidFinnes + " og " + dagFinnes + " i arrayet er: " + findFinnesIndex +" og " + findDagIndex)
+
+      //  //klokkeslettet som ligger i findFinnesIndex er:
+      //  let klokkeslett = this.startTidArray[findFinnesIndex];
+      //  console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett)
+
+
+      //  //bare printe ut romNR der klokkeslett+dag fra vaskArray matcher klokkeslett+dag i table(arrayene tid+dag)
+
+
+      //  console.log("added to " + dag + " table @" + tidFinnes + " O' clock")
+      //}
+      //else { console.log("Something went wrong.") }
+      //for (let booking of this.dbVaskArray) {
+      //  console.log("kjører for loop")
+      //  let tidIndex = (booking.vaskStart.substr(0, 2) - 8) / 2;
+      //  let dagIndex = this.dagIndexes[booking.dag];
+      //  this.allData[tidIndex].items[dagIndex] = booking.leilighetsNR;
+      //}
+      //console.log("ute av for loop" + JSON.stringify(this.allData))
     },
-    pushTODB: function pushTODB() {
-      //slå sammen dato+tid før push - i riktig format YYYY-MM-DD + time HH.MM.SS
-    }
+    pushTODB: function pushTODB() {}
   }
 });
 
@@ -35001,9 +35017,9 @@ var render = function() {
             [
               _c("th", [_vm._v("Tid/Dag")]),
               _vm._v(" "),
-              _vm._l(_vm.dagArray, function(dag) {
+              _vm._l(_vm.dagArray, function(dag, dagIndex) {
                 return _c("th", { attrs: { width: "50" } }, [
-                  _vm._v(_vm._s(dag) + " - " + _vm._s(_vm.date))
+                  _vm._v(_vm._s(dag) + " - " + _vm._s(dagIndex))
                 ])
               })
             ],
@@ -35013,24 +35029,25 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.startTidArray, function(tid, tid_index) {
+          _vm._l(_vm.allData, function(timeObj, tidIndex) {
             return _c(
               "tr",
-              { key: tid },
               [
-                _c("td", [_vm._v(_vm._s(tid))]),
+                _c("td", [_vm._v(_vm._s(timeObj.tid))]),
                 _vm._v(" "),
-                _vm._l(_vm.dagArray, function(dag, dag_index) {
+                _c("td"),
+                _vm._v(" "),
+                _vm._l(timeObj.items, function(room) {
                   return _c(
                     "td",
                     {
                       on: {
                         click: function($event) {
-                          return _vm.velg(tid_index, dag_index)
+                          return _vm.velgTid(tidIndex)
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.testNR))]
+                    [_vm._v(_vm._s(room))]
                   )
                 })
               ],
@@ -35040,8 +35057,10 @@ var render = function() {
           0
         )
       ]),
-      _vm._v(" "),
-      _vm._v("\n    " + _vm._s(_vm.test) + "\n  ")
+      _vm._v("\n\n\n    " + _vm._s(_vm.test) + "\n\n    "),
+      _c("span", { staticStyle: { color: "transparent" } }, [
+        _vm._v(_vm._s(_vm.dummyCounter))
+      ])
     ]),
     _vm._v(" "),
     _c(
