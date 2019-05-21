@@ -8,15 +8,15 @@
         <thead>
           <tr>
             <th>Tid/Dag</th>
-            <th v-for="(dag, dagIndex) in dagArray" width="50">{{ dag }} - {{dagIndex}}</th>
+            <th v-for="(dag, index) in dagArray" width="50"> {{dag}}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(timeObj, tidIndex) in allData">
-            <td>{{ timeObj.tid }}</td>
-            <td></td>
-            <td v-for="room in timeObj.items" @click="velgTid(tidIndex)">{{room}}</td>
-            <!--<td v-for="room in timeObj.items" @click="velgTid(tidIndex, dagIndex)">{{room}}</td>-->
+            <td>{{ timeObj.tid }} </td>
+            
+            <td v-for="(room, day) in timeObj.items" @click="velgTid(timeObj.tid, day)">{{room}}</td>
+
           </tr>
         </tbody>
       </table>
@@ -51,9 +51,7 @@
         dbVaskArray: [],
         dagIndexes: { Mandag: 0, Tirsdag: 1, Onsdag: 2, Torsdag: 3, Fredag: 4, Lørdag: 5, Søndag: 6 },
         date: new Date().toISOString().slice(6, 10),
-        //flippedDate: null,
         dagArray: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
-        //startTidArray: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
         testNR: "",
         isMatch: false,
         test: "Valgt dag + tid: "
@@ -85,19 +83,45 @@
         console.log("dette ligger i this.allData: ", this.allData)
       },
       velg(tid, dagIndex) {
-        let valgtTid = this.startTidArray[tid]
-        let valgtDag = this.dagArray[dagIndex]
+        //let valgtTid = this.startTidArray[tid]
+        //let valgtDag = this.dagArray[dagIndex]
 
 
-        this.test = "Valgt dag + tid: " + " klokken " + valgtTid + " på " + valgtDag
+        //this.test = "Valgt dag + tid: " + " klokken " + valgtTid + " på " + valgtDag
       },
-      velgTid(e) {
-        console.log(e)
+      velgTid(e , f) {
+        console.log(e, f)
+        switch (f) {
+          case 0:
+            f = "Mandag";
+            break;
+          case 1:
+            f = "Tirsdag";
+            break;
+          case 2:
+            f = "Onsdag";
+            break;
+          case 3:
+            f = "Torsdag";
+            break;
+          case 4:
+            f = "Fredag";
+            break;
+          case 5:
+            f = "Lørdag";
+            break;
+          case 6:
+            f = "Søndag";
+            
+        }
+        this.test = "Valgt dag + tid: " + " klokken " + e + " på " + f
+       
       },
       getDates() {
         //let today = (new Date());
         //console.log("dateFromDB: " + this.vask[0].vaskStart)
         this.dataFromDBtoTable()
+        console.log(JSON.stringify(this.dbVaskArray) + " dbVaskArray")
         //let tomorrow = (new Date()).add(1, 'days');
 
       },
@@ -117,59 +141,6 @@
           }
         }
         return null;
-      },
-
-
-      dataFromDBtoTable() {
-        //let incomingVask = this.dbVaskArray[0] //prøver med én spesifik først
-        //let vaskStart = incomingVask.vaskStart
-        //let leilighetsNR = incomingVask.leilighetsNR
-        //let dag = incomingVask.dag
-
-
-        //console.log("incoming vask: " + incomingVask)
-        //console.log("vask dag: " + dag)
-        //this.testNR = leilighetsNR //tester å sende "inkommet" leil.Nr opp i data, og printe ut dét
-
-
-        ////sjekke om tidspunktet som kommer inn finnes i tid arrayet
-        //let tidFinnes = this.matchInnhold(vaskStart, this.startTidArray)
-        //let dagFinnes = this.matchInnhold(dag, this.dagArray)
-
-        //if (tidFinnes && dagFinnes) {
-        //  this.isMatch = true
-
-        // // document.getElementById("man10").innerHTML = leilighetsNR
-        //  console.log("Tidspunkt fra vaskArray som matcher tidsArray: " + tidFinnes)
-
-        //  let findFinnesIndex = this.startTidArray.indexOf(tidFinnes)
-        //  let findDagIndex = this.dagArray.indexOf(dagFinnes)
-        //  console.log("indexen til " + tidFinnes + " og " + dagFinnes + " i arrayet er: " + findFinnesIndex +" og " + findDagIndex)
-
-        //  //klokkeslettet som ligger i findFinnesIndex er:
-        //  let klokkeslett = this.startTidArray[findFinnesIndex];
-        //  console.log("klokkeslettet på plass " + findFinnesIndex + " i arrayet er: " + klokkeslett)
-
-
-        //  //bare printe ut romNR der klokkeslett+dag fra vaskArray matcher klokkeslett+dag i table(arrayene tid+dag)
-
-
-        //  console.log("added to " + dag + " table @" + tidFinnes + " O' clock")
-        //}
-        //else { console.log("Something went wrong.") }
-        //for (let booking of this.dbVaskArray) {
-        //  console.log("kjører for loop")
-        //  let tidIndex = (booking.vaskStart.substr(0, 2) - 8) / 2;
-        //  let dagIndex = this.dagIndexes[booking.dag];
-        //  this.allData[tidIndex].items[dagIndex] = booking.leilighetsNR;
-        //}
-        //console.log("ute av for loop" + JSON.stringify(this.allData))
-      },
-
-
-
-      pushTODB() {
-
       }
 
 
