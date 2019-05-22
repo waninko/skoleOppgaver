@@ -7,31 +7,32 @@
       <table class="vaskeTabell">
         <thead>
           <tr>
-            <th>Tid/Dag</th>
-            <th v-for="(dag, index) in dagArray" width="50"> {{dag}}</th>
+            <th>Tid/Dag <br>Uke: {{week}}</th>
+            <th v-for="(ukedag, index) in dagArray" width="50"> {{ukedag}} {{day  }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(timeObj, tidIndex) in allData">
             <td>{{ timeObj.tid }} </td>
-            
-            <td v-for="(room, day) in timeObj.items" @click="velgTid(timeObj.tid, day)">{{room}}</td>
-
+            <td v-for="(room, day) in timeObj.items" @click="velg(timeObj.tid, day)">{{room}}</td>
           </tr>
         </tbody>
       </table>
 
 
-      {{test}}
+      {{valgt}}
 
       <span style="color:transparent">{{ dummyCounter }}</span>
     </div>
-    <button @click="getDates()">console.log</button>
+    <button @click="consoleLog()">console.log</button>
   </div>
 </template>
 <script>
   import axios from 'axios'
-
+  import moment from 'moment'
+  import VueMoment from 'vue-moment'
+  import datejs from 'datejs'
+  
   export default {
     name: 'Vaskeliste',
     data() {
@@ -50,24 +51,39 @@
         ],
         dbVaskArray: [],
         dagIndexes: { Mandag: 0, Tirsdag: 1, Onsdag: 2, Torsdag: 3, Fredag: 4, Lørdag: 5, Søndag: 6 },
-        date: new Date().toISOString().slice(6, 10),
+        
+        dateContext: moment(),
+       // getDate: ,
+
         dagArray: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
         testNR: "",
         isMatch: false,
-        test: "Valgt dag + tid: "
+        valgt: "Valgt dag + tid: "
       }
     },
     created() {
-      //for (let time = 8; time <= 22; time += 2) {
-      //  this.allData.push({ tid: (time + 100 + ':00').substr(1), items: ['','','','','','','']});
-      //}
-      //console.log("allData: " + JSON.stringify( this.allData));
-
       axios.get("/api/vask")
         .then(this.handleData)
         .catch(function (error) {
           console.log("Her gikk det galt: " + error)
         })
+    },
+    computed: {
+      day() {
+        var t = this
+        return t.dateContext.format('DD/MM')
+      },
+      week() {
+        var t = this
+        return t.dateContext.format('WW')
+      },
+      year() {
+        var t = this
+        return t.dateContext.format('YYYY')
+      }
+    },
+    watch: {
+     
     },
     methods: {
       handleData(response) {
@@ -82,57 +98,50 @@
         console.log("dette ligger i response: " + JSON.stringify(response.data))
         console.log("dette ligger i this.allData: ", this.allData)
       },
-      velg(tid, dagIndex) {
-        //let valgtTid = this.startTidArray[tid]
-        //let valgtDag = this.dagArray[dagIndex]
-
-
-        //this.test = "Valgt dag + tid: " + " klokken " + valgtTid + " på " + valgtDag
-      },
-      velgTid(e , f) {
-        console.log(e, f)
-        switch (f) {
+      velg(tid , dag) {
+        console.log(tid, dag)
+        switch (dag) {
           case 0:
-            f = "Mandag";
+            dag = "Mandag";
             break;
           case 1:
-            f = "Tirsdag";
+            dag = "Tirsdag";
             break;
           case 2:
-            f = "Onsdag";
+            dag = "Onsdag";
             break;
           case 3:
-            f = "Torsdag";
+            dag = "Torsdag";
             break;
           case 4:
-            f = "Fredag";
+            dag = "Fredag";
             break;
           case 5:
-            f = "Lørdag";
+            dag = "Lørdag";
             break;
           case 6:
-            f = "Søndag";
+            dag = "Søndag";
             
         }
-        this.test = "Valgt dag + tid: " + " klokken " + e + " på " + f
+        this.valgt = "Valgt dag + tid: " + " klokken " + tid + " på " + dag
        
       },
-      getDates() {
-        //let today = (new Date());
-        //console.log("dateFromDB: " + this.vask[0].vaskStart)
-        this.dataFromDBtoTable()
-        console.log(JSON.stringify(this.dbVaskArray) + " dbVaskArray")
+      consoleLog() {
+        var getDate = moment().day('monday').year(this.year).week(this.week).toDate()
+        //finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
+        console.log(getDate)
+        
         //let tomorrow = (new Date()).add(1, 'days');
 
       },
-      getCurrentWeek() {
+      getCurrentDays() {
         //med moment(isoweek)..?
+        let todaysDate = new Date().toISOString()
+        var tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        this.date = tomorrow
       },
-      setDateTime() {
-        //et array per dag+dato, indexene koblet til klokkeslett
-        //--dagen som trykkes på skal få data om tid / dag fra to forskjellige arrays
 
-      },
       matchInnhold(str, arr) {
         for (var i = 0; i != arr.length; i++) {
           var match = arr[i];

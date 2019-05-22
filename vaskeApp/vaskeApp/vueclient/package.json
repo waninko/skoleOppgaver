@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "datejs": "^1.0.0-rc3",
     "moment": "^2.24.0",
     "vue": "^2.5.2",
+    "vue-moment": "^4.0.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

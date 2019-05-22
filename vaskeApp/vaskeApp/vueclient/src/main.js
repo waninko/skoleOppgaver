@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import VueMoment from 'vue-moment'
 import moment from 'moment'
+import datejs from 'datejs'
 
+Vue.use(datejs)
 Vue.use(moment)
+Vue.use(VueMoment)
 
 Vue.config.productionTip = false
 
