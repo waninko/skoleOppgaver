@@ -8,7 +8,7 @@
         <thead>
           <tr>
             <th>Tid/Dag <br>Uke: {{week}}</th>
-            <th v-for="(ukedag, index) in dagArray" width="50"> {{ukedag}} {{day  }}</th>
+            <th v-model="currentWeekDates" v-for="(ukedag, index) in dagArray" width="50"> {{ukedag}} {{ getCurrentDates(ukedag)}}</th>
           </tr>
         </thead>
         <tbody>
@@ -53,9 +53,9 @@
         dagIndexes: { Mandag: 0, Tirsdag: 1, Onsdag: 2, Torsdag: 3, Fredag: 4, Lørdag: 5, Søndag: 6 },
         
         dateContext: moment(),
-       // getDate: ,
+        currentWeekDates:"",
 
-        dagArray: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
+        dagArray: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         testNR: "",
         isMatch: false,
         valgt: "Valgt dag + tid: "
@@ -67,6 +67,10 @@
         .catch(function (error) {
           console.log("Her gikk det galt: " + error)
         })
+
+      //var getDate = moment().day('monday').year(this.year).week(this.week).toDate().toString()
+      ////finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
+      //this.currentWeekDates = getDate.slice(8, 10)
     },
     computed: {
       day() {
@@ -127,19 +131,19 @@
        
       },
       consoleLog() {
-        var getDate = moment().day('monday').year(this.year).week(this.week).toDate()
+        var getDate = moment().day('Monday').year(this.year).week(this.week).toDate().toString()
         //finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
+        this.currentWeekDates = getDate.slice(8, 10)
         console.log(getDate)
         
         //let tomorrow = (new Date()).add(1, 'days');
 
       },
-      getCurrentDays() {
-        //med moment(isoweek)..?
-        let todaysDate = new Date().toISOString()
-        var tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        this.date = tomorrow
+
+      getCurrentDates(ukedag) {
+        var getDate = moment().day(ukedag).year(this.year).isoWeek(this.week).toDate().toString()
+        //finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
+        return getDate.slice(8, 10)
       },
 
       matchInnhold(str, arr) {
