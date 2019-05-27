@@ -2,42 +2,42 @@
   <div>
     {{msg}}
     <div>
-      
+
 
       <table class="vaskeTabell">
         <thead>
           <tr>
-            <th>Tid/Dag <br>Uke: {{week}}</th>
+            <th>Tid/Dag <br>Uke: {{week}} </th>
             <th v-model="currentWeekDates" v-for="(ukedag, index) in dagArray" width="50"> {{ukedag}} {{ getCurrentDates(ukedag)}}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(timeObj, tidIndex) in allData">
             <td>{{ timeObj.tid }} </td>
-            <td v-for="(room, day) in timeObj.items" @click="velg(timeObj.tid, day)">{{room}}</td>
+            <td v-for="(room, day, vaskID) in timeObj.items"
+                @click="velg(timeObj.tid, day, room, timeObj.vaskID)"
+               
+                >{{room.booking}}</td>
           </tr>
         </tbody>
       </table>
 
 
-      {{valgt}}
-
+      
       <span style="color:transparent">{{ dummyCounter }}</span>
     </div>
-    <button @click="consoleLog()">console.log</button>
+   
   </div>
 </template>
 <script>
   import axios from 'axios'
   import moment from 'moment'
-  import VueMoment from 'vue-moment'
-  import datejs from 'datejs'
   
   export default {
     name: 'Vaskeliste',
     data() {
       return {
-        msg: "Her kommer en liste over vask..?",
+        msg: "Vaskeliste",
         dummyCounter: 0,
         allData: [
           { tid: '08:00', items: ['', '', '', '', '', '', ''] },
@@ -56,9 +56,9 @@
         currentWeekDates:"",
 
         dagArray: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        testNR: "",
-        isMatch: false,
-        valgt: "Valgt dag + tid: "
+        selectedStyle: {
+          background: "yellow"
+        }
       }
     },
     created() {
@@ -67,10 +67,8 @@
         .catch(function (error) {
           console.log("Her gikk det galt: " + error)
         })
-
-      //var getDate = moment().day('monday').year(this.year).week(this.week).toDate().toString()
-      ////finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
-      //this.currentWeekDates = getDate.slice(8, 10)
+      //console.log("Dataarray: " + this.dbVaskArray)
+      //console.log("allData: " + JSON.stringify(this.allData))
     },
     computed: {
       day() {
@@ -86,24 +84,22 @@
         return t.dateContext.format('YYYY')
       }
     },
-    watch: {
-     
-    },
     methods: {
       handleData(response) {
-        console.log('handleData', response.data);
+        console.log('handleData', response.data)
         for (let booking of response.data) {
-          this.dbVaskArray.push(booking);
+          this.dbVaskArray.push(booking)
           let tidIndex = (booking.vaskStart.substr(0, 2) - 8) / 2;
-          let dagIndex = this.dagIndexes[booking.dag];
-          this.allData[tidIndex].items[dagIndex] = booking.leilighetsNR;
+          let dagIndex = this.dagIndexes[booking.dag]
+          let vaskID = booking.vaskID
+          this.allData[tidIndex].items[dagIndex] = { booking: booking.leilighetsNR, bookingID: vaskID }
+       
         }
         this.dummyCounter++;
-        console.log("dette ligger i response: " + JSON.stringify(response.data))
-        console.log("dette ligger i this.allData: ", this.allData)
       },
-      velg(tid , dag) {
-        console.log(tid, dag)
+      velg(tid , dag, room) {
+        console.log(tid, dag, room)
+        this.selected = true
         switch (dag) {
           case 0:
             dag = "Mandag";
@@ -127,22 +123,19 @@
             dag = "Søndag";
             
         }
-        this.valgt = "Valgt dag + tid: " + " klokken " + tid + " på " + dag
-       
-      },
-      consoleLog() {
-        var getDate = moment().day('Monday').year(this.year).week(this.week).toDate().toString()
-        //finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
-        this.currentWeekDates = getDate.slice(8, 10)
-        console.log(getDate)
+        this.valgtTid = "Valgt dag + tid: " + " klokken " + tid + " på " + dag
+        var tid = tid
+        var dag = dag
+        var valgtVaskId = room.bookingID
+        var valgtLeilighet = room.booking
         
-        //let tomorrow = (new Date()).add(1, 'days');
-
+        console.log("id..? ", valgtVaskId)
+        console.log("leilighet..?", valgtLeilighet)
+        this.$emit("sendTimeToParent", tid, dag, valgtLeilighet, valgtVaskId)
       },
-
+     
       getCurrentDates(ukedag) {
-        var getDate = moment().day(ukedag).year(this.year).isoWeek(this.week).toDate().toString()
-        //finne en måte å bytte ut .day(ukedag.dagArray?) etthvert som det "bartes ut" i v-for'en!
+        var getDate = moment().day(ukedag).year(this.year).isoWeek(this.week).toISOString()
         return getDate.slice(8, 10)
       },
 
@@ -154,6 +147,12 @@
           }
         }
         return null;
+      },
+      onCellClick(params) {
+        // params.row - row object 
+        // params.column - column object
+        // params.rowIndex - index of this row on the current page.
+        // params.event - click event
       }
 
 
@@ -184,5 +183,9 @@
 
   th, tr, td {
     border: 1px solid black;
+  }
+
+  .selected {
+    background-color: limegreen;
   }
 </style>

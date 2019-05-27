@@ -52,17 +52,19 @@ namespace vaskeApp.Controllers
             _context.vaskeTabell.Add(vask);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetVask), new { id = vask.vaskID }, vask);
-        
+            return vask;
+            //return CreatedAtAction(nameof(GetVask), new { id = vask.vaskID }, vask);
+
         }
 
         // PUT api/vask/ id på vask du vil endre
         [HttpPut("{id}")]
-        public async Task<ActionResult<Vask>>UpdateVask(int id, Vask vask)
+        public async Task<ActionResult<Vask>>UpdateVask(int id, [FromBody] Vask vask)
          {
              var exists = await _context.vaskeTabell.AnyAsync(v => v.vaskID == id);
              if (!exists)
-                {
+             {
+                 Console.Beep();
                   return NotFound();
                 }
 

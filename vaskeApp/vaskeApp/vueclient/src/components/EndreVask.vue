@@ -1,6 +1,15 @@
 <template>
   <div>
-   {{msg}}
+
+    <br />
+    {{nrMsg}}<br />
+    <input type="text" v-model="leilighetsNR" /> <br /> <br />
+    {{timeMsg}} <br />
+    <input type="text" v-model="valgtDag" /> <br />
+    <input type="text" v-model="valgtTid" /> <br />
+    <button @click="saveChanges()">Lagre</button>
+    <button>Slett Oppføring</button>
+    
   </div>
 </template> 
 
@@ -9,12 +18,61 @@
   import axios from 'axios'
 
 export default {
-  name: 'EndreVask',
+    name: 'EndreVask',
+    props: ['valgtTid', 'valgtDag', 'valgtLeilighet', 'valgtVaskId'],
   data () {
     return {
-      msg: "Her kan man endre/slette vask..?",
-      
+      nrMsg: "Tast inn annet leilighetsNr om du tastet feil v/lagring - eller velg blankt felt og sett deg opp",
+      timeMsg: "Velg Annet Tidspunkt og/eller dag i kalenderen om nødvendig",
+      leilighetsNR: this.valgtLeilighet,
     }
+    },
+    mounted() {
+      console.log("vaskID fra props: " + this.valgtVaskId)
+    },
+  methods: {
+    saveChanges() { 
+      var url = '/api/vask/' + this.valgtVaskId
+      console.log("dette er URL: " + url)
+      console.log("leilighetsNR: " + this.leilighetsNR)
+
+      var vaskeObj = {
+        leilighetsNR: this.leilighetsNR,
+        vaskStart: this.valgtTid,
+        dag: this.valgtDag,
+        varighet: 120
+      }
+      console.log("vaskeObj rett før axios: " + JSON.stringify(vaskeObj))
+
+      axios.put(url, vaskeObj)
+        
+          .then(response => {
+            console.log(response);
+            console.log("then response " + JSON.stringify(error))
+        })
+        .catch(error => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+          });
+      
+      
+     
+
+    } 
   }
 }
 </script>

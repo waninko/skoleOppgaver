@@ -1,10 +1,27 @@
 <template>
   <div id="app">
-    <Vaskeliste />
-    <OpprettVask v-if="OpprettVask "/>
-    <EndreVask v-if="EndreVask "/>
-    <button @click="leggtilVask()">Sett opp Vask</button>
-    <button @click="redigerVask()">Endre Vask</button>
+    <Vaskeliste
+    :valgtTid ="valgtTid"
+    v-on:sendTimeToParent="getTime"
+                />
+
+    <OpprettVask v-if="OpprettVask && !EndreVask"
+     :valgtTid ="valgtTid"
+     :valgtDag = "valgtDag"
+                 />
+
+
+    <EndreVask v-if="EndreVask "
+      :valgtTid ="valgtTid"
+      :valgtDag = "valgtDag"
+      :valgtLeilighet = "valgtLeilighet"
+      :valgtVaskId = "valgtVaskId"
+               />
+
+    
+    <button v-if="!OpprettVask" @click="leggtilVask()">Sett opp Ny Vask</button>
+    <button v-if="!EndreVask" @click="redigerVask()">Endre Vask</button>
+
   </div>
 </template>
 
@@ -24,7 +41,11 @@
     data() {
       return {
         EndreVask: false,
-        OpprettVask: false
+        OpprettVask: false,
+        valgtTid: "testTid",
+        valgtDag: "",
+        valgtLeilighet: "",
+        valgtVaskId: ""
 
       };
     },
@@ -34,6 +55,12 @@
       },
       leggtilVask() {
         this.OpprettVask = true
+      },
+      getTime(tid, dag, valgtLeilighet, valgtVaskId) {
+        this.valgtTid = tid
+        this.valgtDag = dag
+        this.valgtLeilighet = valgtLeilighet
+        this.valgtVaskId = valgtVaskId
       }
 
     }
