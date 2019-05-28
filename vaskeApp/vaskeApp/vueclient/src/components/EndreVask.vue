@@ -8,7 +8,7 @@
     <input type="text" v-model="valgtDag" /> <br />
     <input type="text" v-model="valgtTid" /> <br />
     <button @click="saveChanges()">Lagre</button>
-    <button>Slett Oppføring</button>
+    <button @click="deleteSelected()">Slett Oppføring</button>
     
   </div>
 </template> 
@@ -24,7 +24,7 @@ export default {
     return {
       nrMsg: "Tast inn annet leilighetsNr om du tastet feil v/lagring - eller velg blankt felt og sett deg opp",
       timeMsg: "Velg Annet Tidspunkt og/eller dag i kalenderen om nødvendig",
-      leilighetsNR: this.valgtLeilighet,
+      leilighetsNR: this.valgtLeilighet
     }
     },
     mounted() {
@@ -47,32 +47,49 @@ export default {
       axios.put(url, vaskeObj)
         
           .then(response => {
-            console.log(response);
-            console.log("then response " + JSON.stringify(error))
+            console.log(response)
         })
         .catch(error => {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
           } else if (error.request) {
             // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
             console.log(error.request);
           } else {
             // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
+            console.log('Error', error.message)
           }
-          console.log(error.config);
-          });
-      
-      
-     
+          console.log(error.config)
+          })
+    },
 
-    } 
+    deleteSelected() {
+      var url = '/api/vask/' + this.valgtVaskId
+      axios.delete(url)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message)
+          }
+          console.log(error.config)
+        })
+    }
   }
 }
 </script>

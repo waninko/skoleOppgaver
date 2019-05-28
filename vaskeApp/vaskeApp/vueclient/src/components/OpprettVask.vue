@@ -6,6 +6,7 @@
     valgt dag:{{valgtDag}}
     <br />
     skriv inn leilighetsNR: <input type="text" id="leilighetInput" v-model="leilighetInput"/> <button @click="saveData()">Lagre</button>
+    {{msg}}
   </div>
 </template>
 
@@ -17,11 +18,14 @@ export default {
     props: ['valgtTid', 'valgtDag'],
   data () {
     return {
-      msg: "Her kan man opprette/skrive seg opp på vask om det er ledig tid..?",
+      msg: "",
       leilighetInput: "",
     }
     },
     methods: {
+      console() {
+        console.log(" valgt tid/dag: " + this.valgtTid, this.valgtDag)
+      },
       saveData() {
         var vaskObj = {
           LeilighetsNR : this.leilighetInput,
@@ -29,14 +33,19 @@ export default {
           Dag: this.valgtDag,
           Varighet: 120
         }
-        
-        axios.post('/api/vask',  vaskObj)
-          .then(function (response) {
-            console.log('lagret ny vask: ', response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        if (this.valgtTid && this.valgtDag == "" ) {
+          axios.post('/api/vask', vaskObj)
+            .then(function (response) {
+              console.log('lagret ny vask: ', response)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+        }
+        else {
+          this.msg ="Vennligest velg en ledig time for vask."
+        }
+       
         
       }
     }

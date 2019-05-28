@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ab1a892ddacaea1b573d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7a7fc453a7cb6344d25b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -32034,7 +32034,6 @@ module.exports = Cancel;
 
       __WEBPACK_IMPORTED_MODULE_1_axios___default.a.put(url, vaskeObj).then(function (response) {
         console.log(response);
-        console.log("then response " + __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(error));
       }).catch(function (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -32044,8 +32043,27 @@ module.exports = Cancel;
           console.log(error.response.headers);
         } else if (error.request) {
           // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+    },
+    deleteSelected: function deleteSelected() {
+      var url = '/api/vask/' + this.valgtVaskId;
+      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete(url).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
           console.log(error.request);
         } else {
           // Something happened in setting up the request that triggered an Error
@@ -32075,6 +32093,7 @@ module.exports = Cancel;
 //
 //
 //
+//
 
 
 
@@ -32083,12 +32102,25 @@ module.exports = Cancel;
   props: ['valgtTid', 'valgtDag'],
   data: function data() {
     return {
-      msg: "Her kan man opprette/skrive seg opp på vask om det er ledig tid..?",
+      msg: "",
       leilighetInput: ""
     };
   },
 
   methods: {
+    console: function (_console) {
+      function console() {
+        return _console.apply(this, arguments);
+      }
+
+      console.toString = function () {
+        return _console.toString();
+      };
+
+      return console;
+    }(function () {
+      console.log(" valgt tid/dag: " + this.valgtTid, this.valgtDag);
+    }),
     saveData: function saveData() {
       var vaskObj = {
         LeilighetsNR: this.leilighetInput,
@@ -32096,12 +32128,15 @@ module.exports = Cancel;
         Dag: this.valgtDag,
         Varighet: 120
       };
-
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/vask', vaskObj).then(function (response) {
-        console.log('lagret ny vask: ', response);
-      }).catch(function (error) {
-        console.log(error);
-      });
+      if (this.valgtTid && this.valgtDag == "") {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/vask', vaskObj).then(function (response) {
+          console.log('lagret ny vask: ', response);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      } else {
+        this.msg = "Vennligest velg en ledig time for vask.";
+      }
     }
   }
 });
@@ -35625,7 +35660,17 @@ var render = function() {
       [_vm._v("Lagre")]
     ),
     _vm._v(" "),
-    _c("button", [_vm._v("Slett Oppføring")])
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.deleteSelected()
+          }
+        }
+      },
+      [_vm._v("Slett Oppføring")]
+    )
   ])
 }
 var staticRenderFns = []
@@ -35737,7 +35782,8 @@ var render = function() {
         }
       },
       [_vm._v("Lagre")]
-    )
+    ),
+    _vm._v("\n  " + _vm._s(_vm.msg) + "\n")
   ])
 }
 var staticRenderFns = []
