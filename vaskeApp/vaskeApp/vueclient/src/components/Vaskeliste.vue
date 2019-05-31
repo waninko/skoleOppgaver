@@ -2,27 +2,25 @@
   <div>
     {{msg}}
     <div>
-
-
       <table class="vaskeTabell">
         <thead>
           <tr>
             <th>Tid/Dag <br>Uke: {{week}} </th>
-            <th v-model="currentWeekDates" v-for="(ukedag, index) in dagArray" width="50"> {{ukedag}} {{ getCurrentDates(ukedag)}}</th>
+            <th v-for="ukedag in dagArray" width="50"> {{ukedag}} {{ getCurrentDates(ukedag)}}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(timeObj, tidIndex) in allData">
             <td>{{ timeObj.tid }} </td>
-            <td v-for="(room, day, vaskID) in timeObj.items"
-                @click="velg(timeObj.tid, day, room, timeObj.vaskID)"
+            <td v-for="(room, ukedag, vaskID) in timeObj.items"
+                @click="velg(timeObj.tid, ukedag, room, timeObj.vaskID)"
                
-                >{{room.booking}}</td>
+                >{{room.booking}} </td>
           </tr>
         </tbody>
       </table>
 
-
+      <button @click="console()">Console.log</button>
       
       <span style="color:transparent">{{ dummyCounter }}</span>
     </div>
@@ -35,6 +33,7 @@
   
   export default {
     name: 'Vaskeliste',
+    props: ['isUpdated'],
     data() {
       return {
         msg: "Vaskeliste",
@@ -61,14 +60,22 @@
         }
       }
     },
+    watch: {
+      isUpdated(bool) {
+        axios.get("/api/vask")
+          .then(this.handleData, this.$emit("sendUpdateToParent", this.isUpdated))
+       
+          .catch(function (error) {
+            console.log("Her gikk det galt: " + error)
+          })
+      }
+    },
     created() {
       axios.get("/api/vask")
         .then(this.handleData)
         .catch(function (error) {
           console.log("Her gikk det galt: " + error)
         })
-      //console.log("Dataarray: " + this.dbVaskArray)
-      //console.log("allData: " + JSON.stringify(this.allData))
     },
     computed: {
       day() {
@@ -85,6 +92,9 @@
       }
     },
     methods: {
+      console() {
+        this.checkIfDateHasPassed()
+      },
       handleData(response) {
         console.log('handleData', response.data)
         for (let booking of response.data) {
@@ -97,7 +107,7 @@
         }
         this.dummyCounter++;
       },
-      velg(tid , dag, room) {
+      velg(tid, dag, room, dato) {
         console.log(tid, dag, room)
         this.selected = true
         switch (dag) {
@@ -123,12 +133,15 @@
             dag = "Søndag";
             
         }
-        this.valgtTid = "Valgt dag + tid: " + " klokken " + tid + " på " + dag
+        
         var tid = tid
         var dag = dag
+        var dato = dato
         var valgtVaskId = room.bookingID
         var valgtLeilighet = room.booking
-        
+
+        console.log("dato..? ", dato)
+        console.log("dag..? ", dag)
         console.log("id..? ", valgtVaskId)
         console.log("leilighet..?", valgtLeilighet)
         this.$emit("sendTimeToParent", tid, dag, valgtLeilighet, valgtVaskId)
@@ -136,7 +149,37 @@
      
       getCurrentDates(ukedag) {
         var getDate = moment().day(ukedag).year(this.year).isoWeek(this.week).toISOString()
+       
         return getDate.slice(8, 10)
+      },
+
+      checkIfDateHasPassed() {
+        var chosenDate = ""
+        var today = moment().format("DD").toString()
+        var endOfWeek = moment().endOf('ISOweek')
+        console.log("today - end of week :" + today, endOfWeek.toString())
+        var yesterday = moment().subtract(1, 'days').format("DD").toString()
+        
+        console.log("testDate: " + yesterday, today)
+
+        //for (var i = 1; i < 6; i++) {
+        //  if (today == moment().subtract(i, 'days').format("DD").toString()) {
+        //    console.log("Dette er dagens dato - eller har ikke passert - sett deg opp!")
+        //  }
+        //  else {
+        //    console.log("denne datoen har passert, umuligå sette seg opp i fortiden.")
+            
+        //  }
+          
+        //}
+
+       
+
+        //if (chosenDate.isBetween(today, endOfWeek) == true) {
+        //  console.log("is true - post away!")
+        //}
+        //else { console.log("is false - choose an upcoming or this date")}
+
       },
 
       matchInnhold(str, arr) {

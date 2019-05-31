@@ -24,7 +24,8 @@ export default {
     return {
       nrMsg: "Tast inn annet leilighetsNr om du tastet feil v/lagring - eller velg blankt felt og sett deg opp",
       timeMsg: "Velg Annet Tidspunkt og/eller dag i kalenderen om nødvendig",
-      leilighetsNR: this.valgtLeilighet
+      leilighetsNR: this.valgtLeilighet,
+      isUpdated: false
     }
     },
     mounted() {
@@ -48,6 +49,8 @@ export default {
         
           .then(response => {
             console.log(response)
+            this.isUpdated = true
+            this.$emit("sendUpdateToParent", this.isUpdated)
         })
         .catch(error => {
           if (error.response) {

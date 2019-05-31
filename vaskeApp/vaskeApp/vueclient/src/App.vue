@@ -2,7 +2,9 @@
   <div id="app">
     <Vaskeliste
     :valgtTid ="valgtTid"
+    :isUpdated="isUpdated"
     v-on:sendTimeToParent="getTime"
+    v-on:sendUpdateToParent="isUpdated = false"
                 />
 
     <OpprettVask v-if="OpprettVask && !EndreVask"
@@ -16,6 +18,7 @@
       :valgtDag = "valgtDag"
       :valgtLeilighet = "valgtLeilighet"
       :valgtVaskId = "valgtVaskId"
+       v-on:sendUpdateToParent="isUpdated= true"
                />
 
     
@@ -45,7 +48,8 @@
         valgtTid: "testTid",
         valgtDag: "",
         valgtLeilighet: "",
-        valgtVaskId: ""
+        valgtVaskId: "",
+        isUpdated: false
 
       };
     },
