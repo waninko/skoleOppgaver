@@ -62,12 +62,9 @@
     },
     watch: {
       isUpdated(bool) {
-        axios.get("/api/vask")
-          .then(this.handleData, this.$emit("sendUpdateToParent", this.isUpdated))
-       
-          .catch(function (error) {
-            console.log("Her gikk det galt: " + error)
-          })
+        console.log("incoming isUpdated: "  , this.isUpdated)
+      this.$emit("sendUpdateToParent", this.isUpdated)
+        
       }
     },
     created() {
@@ -107,9 +104,12 @@
         }
         this.dummyCounter++;
       },
+      updateTable() {
+
+      },
       velg(tid, dag, room, dato) {
         console.log(tid, dag, room)
-        this.selected = true
+        
         switch (dag) {
           case 0:
             dag = "Mandag";

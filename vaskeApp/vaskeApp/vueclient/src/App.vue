@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Vaskeliste
+    <Vaskeliste :key ="isUpdated"
     :valgtTid ="valgtTid"
     :isUpdated="isUpdated"
     v-on:sendTimeToParent="getTime"
@@ -10,20 +10,23 @@
     <OpprettVask v-if="OpprettVask && !EndreVask"
      :valgtTid ="valgtTid"
      :valgtDag = "valgtDag"
+     :valgtLeilighet = "valgtLeilighet"
+     v-on:sendUpdateToParent="isUpdated = true"
                  />
 
 
-    <EndreVask v-if="EndreVask "
+    <EndreVask v-if="EndreVask " 
       :valgtTid ="valgtTid"
       :valgtDag = "valgtDag"
       :valgtLeilighet = "valgtLeilighet"
       :valgtVaskId = "valgtVaskId"
-       v-on:sendUpdateToParent="isUpdated= true"
+       v-on:sendUpdateToParent="isUpdated = true"
                />
 
     
-    <button v-if="!OpprettVask" @click="leggtilVask()">Sett opp Ny Vask</button>
-    <button v-if="!EndreVask" @click="redigerVask()">Endre Vask</button>
+    <button v-if="!OpprettVask && !EndreVask" @click="leggtilVask()">Sett opp Ny Vask</button>
+    <button v-if="!EndreVask && !OpprettVask" @click="redigerVask()">Endre Vask</button> <br />
+    <button v-if="OpprettVask || EndreVask" @click="tilOversikt()">Tilbake Til Oversikt</button>
 
   </div>
 </template>
@@ -59,6 +62,10 @@
       },
       leggtilVask() {
         this.OpprettVask = true
+      },
+      tilOversikt() {
+        this.EndreVask = false
+        this.OpprettVask = false
       },
       getTime(tid, dag, valgtLeilighet, valgtVaskId) {
         this.valgtTid = tid

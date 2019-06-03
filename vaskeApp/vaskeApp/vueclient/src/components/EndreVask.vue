@@ -22,11 +22,16 @@ export default {
     props: ['valgtTid', 'valgtDag', 'valgtLeilighet', 'valgtVaskId'],
   data () {
     return {
-      nrMsg: "Tast inn annet leilighetsNr om du tastet feil v/lagring - eller velg blankt felt og sett deg opp",
+      nrMsg: "Tast inn leilighetsNR på nytt om behøvelig",
       timeMsg: "Velg Annet Tidspunkt og/eller dag i kalenderen om nødvendig",
       leilighetsNR: this.valgtLeilighet,
       isUpdated: false
     }
+    },
+    computed: {
+      updatedChosenApartment() {
+        return this.valgtLeilighet
+      }
     },
     mounted() {
       console.log("vaskID fra props: " + this.valgtVaskId)
@@ -50,6 +55,7 @@ export default {
           .then(response => {
             console.log(response)
             this.isUpdated = true
+            console.log("update status in update: ", this.isUpdated)
             this.$emit("sendUpdateToParent", this.isUpdated)
         })
         .catch(error => {
@@ -75,6 +81,9 @@ export default {
       axios.delete(url)
         .then(response => {
           console.log(response)
+          this.isUpdated = true
+          this.$emit("sendUpdateToParent", this.isUpdated)
+          console.log("update status in delete: " , this.isUpdated)
         })
         .catch(error => {
           if (error.response) {
