@@ -2,19 +2,21 @@
   <div>{{msg}}
     <input type="text" v-model="searchInput"><br>
     {{searchInput}}
-    <button @click="getMusicInfo()">Search!</button>
-    <br>
+
     <ul>
       <li v-for="(result, index) in searchOutput" v-bind:key="index">
           <p>{{result.artistName}} ~ {{result.name}} </p></li>
     </ul>
 <br> Country to see top artists in:
 <input type="text" v-model="countryInput"><br>
-<ul>
-  <li v-for="(result, index) in countryOutput" v-bind:key="index">
-  {{index}}.  {{result.name}} - {{result.listeners}} listeners!
-  </li>
-</ul>
+<button @click="getMusicInfo()" >Search!</button><br>¨
+
+<tr v-for="(result, index) in countryOutput" v-bind:key="index">
+  <td >
+  Number {{index}}.  is <b>{{result.name}}</b> and has <b>{{result.listeners | formatNumber}}</b> listeners!
+  </td> <br>
+</tr>
+
   </div>
 </template>
 
@@ -33,6 +35,12 @@ export default {
   created(){
 
   },
+  filters: {
+    formatNumber(value){
+      console.log("value filter: " , value)
+     return value.toLocaleString()
+    }
+  },
   methods: {
     getMusicInfo() {
       const LastFM = require("last-fm");
@@ -40,6 +48,8 @@ export default {
         userAgent: "MyApp/1.0.0 (http://example.com)"
       });
 console.log("this i method: " + this.searchInput)
+    this.searchOutput.length = 0
+    this.countryOutput.length = 0
 
     if(!this.searchInput == ""){
       lastfm.trackSearch({ q: this.searchInput }, (err, data) => {
@@ -80,5 +90,9 @@ li {
 }
 a {
   color: #42b983;
+}
+td {
+padding: 5px;
+padding-left: 170px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img id="noteLogo" src="./assets/note.png">
     <router-view/>
   </div>
 </template>
@@ -19,5 +19,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#noteLogo{
+  padding-bottom: 15px;
+  height: 75px;
 }
 </style>
