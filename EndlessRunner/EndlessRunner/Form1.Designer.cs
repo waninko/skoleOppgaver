@@ -29,58 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.floor = new System.Windows.Forms.PictureBox();
-            this.runner = new System.Windows.Forms.PictureBox();
-            this.obstacle1 = new System.Windows.Forms.PictureBox();
-            this.obstacle2 = new System.Windows.Forms.PictureBox();
             this.scoreText = new System.Windows.Forms.Label();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.floor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.obstacle1)).BeginInit();
+            this.obstacle2 = new System.Windows.Forms.PictureBox();
+            this.obstacle1 = new System.Windows.Forms.PictureBox();
+            this.runner = new System.Windows.Forms.PictureBox();
+            this.floor = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.obstacle2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.obstacle1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.floor)).BeginInit();
             this.SuspendLayout();
-            // 
-            // floor
-            // 
-            this.floor.BackColor = System.Drawing.Color.Black;
-            this.floor.Location = new System.Drawing.Point(-12, 452);
-            this.floor.Name = "floor";
-            this.floor.Size = new System.Drawing.Size(652, 50);
-            this.floor.TabIndex = 0;
-            this.floor.TabStop = false;
-            // 
-            // runner
-            // 
-            this.runner.Image = global::EndlessRunner.Properties.Resources.running;
-            this.runner.Location = new System.Drawing.Point(131, 385);
-            this.runner.Name = "runner";
-            this.runner.Size = new System.Drawing.Size(44, 60);
-            this.runner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.runner.TabIndex = 1;
-            this.runner.TabStop = false;
-            // 
-            // obstacle1
-            // 
-            this.obstacle1.Image = global::EndlessRunner.Properties.Resources.obstacle_1;
-            this.obstacle1.Location = new System.Drawing.Point(371, 405);
-            this.obstacle1.Name = "obstacle1";
-            this.obstacle1.Size = new System.Drawing.Size(23, 46);
-            this.obstacle1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.obstacle1.TabIndex = 2;
-            this.obstacle1.TabStop = false;
-            this.obstacle1.Tag = "obstacle";
-            // 
-            // obstacle2
-            // 
-            this.obstacle2.Image = global::EndlessRunner.Properties.Resources.obstacle_2;
-            this.obstacle2.Location = new System.Drawing.Point(534, 400);
-            this.obstacle2.Name = "obstacle2";
-            this.obstacle2.Size = new System.Drawing.Size(50, 50);
-            this.obstacle2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.obstacle2.TabIndex = 3;
-            this.obstacle2.TabStop = false;
-            this.obstacle2.Tag = "obstacle";
             // 
             // scoreText
             // 
@@ -98,11 +57,52 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameEvent);
             // 
+            // obstacle2
+            // 
+            this.obstacle2.Image = global::EndlessRunner.Properties.Resources.obstacle_2;
+            this.obstacle2.Location = new System.Drawing.Point(534, 400);
+            this.obstacle2.Name = "obstacle2";
+            this.obstacle2.Size = new System.Drawing.Size(50, 50);
+            this.obstacle2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.obstacle2.TabIndex = 3;
+            this.obstacle2.TabStop = false;
+            this.obstacle2.Tag = "obstacle";
+            // 
+            // obstacle1
+            // 
+            this.obstacle1.Image = global::EndlessRunner.Properties.Resources.obstacle_1;
+            this.obstacle1.Location = new System.Drawing.Point(371, 405);
+            this.obstacle1.Name = "obstacle1";
+            this.obstacle1.Size = new System.Drawing.Size(23, 46);
+            this.obstacle1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.obstacle1.TabIndex = 2;
+            this.obstacle1.TabStop = false;
+            this.obstacle1.Tag = "obstacle";
+            // 
+            // runner
+            // 
+            this.runner.Image = global::EndlessRunner.Properties.Resources.running;
+            this.runner.Location = new System.Drawing.Point(131, 385);
+            this.runner.Name = "runner";
+            this.runner.Size = new System.Drawing.Size(44, 60);
+            this.runner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.runner.TabIndex = 1;
+            this.runner.TabStop = false;
+            // 
+            // floor
+            // 
+            this.floor.BackColor = System.Drawing.Color.Black;
+            this.floor.Location = new System.Drawing.Point(-12, 452);
+            this.floor.Name = "floor";
+            this.floor.Size = new System.Drawing.Size(652, 50);
+            this.floor.TabIndex = 0;
+            this.floor.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.MediumTurquoise;
             this.ClientSize = new System.Drawing.Size(616, 467);
             this.Controls.Add(this.scoreText);
             this.Controls.Add(this.obstacle2);
@@ -111,12 +111,13 @@
             this.Controls.Add(this.floor);
             this.Name = "Form1";
             this.Text = "Endless Runner";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyisdown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyisup);
-            ((System.ComponentModel.ISupportInitialize)(this.floor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.obstacle1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.obstacle2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.obstacle1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.floor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

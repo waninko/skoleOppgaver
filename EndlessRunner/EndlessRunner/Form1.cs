@@ -79,7 +79,6 @@ namespace EndlessRunner
                     }
                 }
             }
-            //if runner top is >= 380px and is not jumping
             if (runner.Top >= 300 && !jumping)
             {
                 force = 12;
@@ -143,6 +142,11 @@ namespace EndlessRunner
                 }
             }
             gameTimer.Start(); 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
