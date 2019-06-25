@@ -1,0 +1,4 @@
+Application name	WorldsMostPopularMusic
+API key	2966e89ae7f423c13dc2fd74303548b3
+Shared secret	3e9f92e522647c0a80e1efb57ac06c49
+Registered to	waninko

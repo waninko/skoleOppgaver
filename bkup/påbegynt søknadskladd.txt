@@ -1,0 +1,74 @@
+Personlig Søknad:
+x-BILDE-x
+
+
+INNLEDNING
+-VIS MOTIVASJON OG GIV-
+Hei! Nå ble jeg glad! Mitt navn er Linn Eidsten, jeg er 32 år gammel,  IT-Student som bor i Larvik  - og er klar for nye utfordringer!
+Min motivasjon for å søke på stillingen da jeg fremdeles er fersk i faget, og ønsker å finne det rette firmaet
+å vokse, vidreutvikle meg og bli en enda bedre programmerer i - og dere fanget virkelig interessen min 
+
+
+
+
+MIDT DEL - OVERBEVISENDE ( KLARER jobben, MOTIVERT for jobben, PASSER INN på jobben)
+
+KLARER:
+Har studert programmeringsfag på GETacademy i Larvik, som er et alternativt og komprimert skoleløp som fokuserer på
+å gjøre elevene klare for og ut i arbeidslivet så raskt som mulig. Det fokuseres både på programmering og nøkkelkompetanser.
+
+I løpet av et år som student på getacademy har jeg satt meg inn i flere språk og rammeverk
+både på skolen og på fritiden - da med fra skolens side særlig fokus på javascript/vue frontend, SQL og c# backend
+Jeg har på egenhånd satt meg inn i PHP og rammeverket Laravel - og har brukt en del PostgreSQL i tidligere prosjekter knyttet til 
+PHP vanilla.
+Har også benyttet meg en del av MySQL - da særlig i forbindelse med bruk av XAMPP + Laravel.
+Er vant med å bruke gitHub som lagringsplatform for prosjektene mine.
+
+
+MOTIVASJON:
+Har alltid satt pris på å arbeide med problemer/utfordringer og grave rundt og finne løsninger på disse - jeg mener alle problemer kan løses,
+bare man leter på rett sted - google, nye tankebaner - andre mennekers erfaringer.
+
+Har fra barnsben av alltid vært interessert i data - både hvordan de fungerer og hva de kan gjøre.
+Laget enkle "hjemmesider" m/enkel html, css og noe javaScript i notepad allerede på barneskolen, og tilegnet meg stadig mer kunnskap etterhvert som årene gikk.
+På vgs valgte jeg bl.a. it-fag som tilvalgsfag - og lærte meg der å bruke Access databaser og noe SQL.
+Havnet deretter av ulike årsaker i en stilling i Helsevesenet hvor jeg ble i flere år til jeg fikk en arbeidsskade og måtte bytte beite.
+Hørte om getacademy, og søkte meg inn og fikk heldigvis plass!
+Her har jeg gjenoppdaget given jeg hadde ved å jobbe med kode - og lært mye nytt - både av språk, arbeidsteknikker og om meg selv.
+Jeg setter pris på at programmering er et felt som er i stadig vekst, og hvor det stadig er noe nytt å lære!
+
+
+AVSLUTNING - PÅMINN TIDLIGERE NEVNT MOTIVASJON, NEVN INTERVJU + KONTAKTINFORMASJON
+Igjen - denne stillingen virker perfekt for meg - et godt sted å ta mine første (av forhåpentligvis mange) skritt
+som junior utvikler hos dere, hvor jeg kan få vist at selv om jeg er student fra et uordinært studieløp ikke har 
+noen probleme rmed å ta utfordringer på strak arm!
+
+Jeg kan nås til alle tider på telefon/sms 98 83 76 82 eller mail til linn.eidsten@gmail.com
+
+
+
+
+
+
+
+
+LINK TIL VUE /  PHP+LARAVEL portfoliorepo
+
+
+
+
+Hva er min motivasjon for å søke stillingen?
+-
+
+Når jeg deretter leste kvalifikasjonskravene og så disse matchet med noe av hva jeg har vært borti tidligere av språk, og i tillegg
+dere gir muligheter til de som ikke har tatt et ordinært studieløp måtte jeg bare legge inn en søknad så raskt som mulig!
+
+
+
+Vil jeg være en god match for arbeidsgiveren?
+-
+Jeg har kunnskap overlappende med kravsspec, er ny innen faget - hvilket ble nevnt ønskelig i annonsen.
+Som person er jeg i stand til å håndtere stress og ha mange baller i luften på én gang. (tidligere arbeidet i helsevesenet over flere år.)
+Løsningsorientert
+
+https://www.finn.no/job/fulltime/ad.html?finnkode=148289416

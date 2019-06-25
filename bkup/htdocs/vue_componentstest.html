@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Vue components & routing testing</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="weekplan.js"></script>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td, tr,table {
+            border: 1px solid gray;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    Velg Deltaker:
+    <select v-model="participant">
+        <option v-for="participant in participants">{{participant}}</option>
+    </select>
+    <weekplan :classes="classes" :participant="participant"></weekplan>
+    
+</div>
+
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+        classes:[
+            {id: 0, text: 'Nøkkelkompetanser', day: 'Mandag', time:'8:45', participants: ['Geir', 'Eskil', 'GET IT 1','GET IT 2']},
+            {id: 1, text: 'Nøkkelkompetanser', day: 'Mandag', time:'9:00', participants: ['Geir', 'Eskil', 'GET IT 1','GET IT 2']},
+            {id: 2, text: 'Nøkkelkompetanser', day: 'Mandag', time:'9:15', participants: ['Geir', 'Eskil', 'GET IT 1','GET IT 2']},
+            {id: 3, text: 'IT', day: 'Mandag', time:'10:00', participants: ['Terje', 'GET IT 1']},
+            {id: 4, text: 'IT', day: 'Mandag', time:'10:15', participants: ['Terje', 'GET IT 1']},
+            {id: 5, text: 'IT', day: 'Mandag', time:'10:30', participants: ['Terje', 'GET IT 1']}
+        ]
+    },
+       
+        computed: {
+            participants: function(){
+                const set = new Set(['']);
+                this. classes.forEach(c=> c.participants.forEach(p=> set.add(p)));
+                return Array.from(set);
+            }
+        }
+    });
+
+   
+
+    
+
+    </script>
+</body>
+</html>

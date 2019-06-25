@@ -1,0 +1,36 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 5px;
+    grid-template-rows: auto;
+
+}
+
+.header {
+    text-align: center;
+    grid-column: span 1;
+    text-align: center;
+    margin-top: auto;
+    display: inline-block;
+    margin-top: 20%;
+}
+
+.content {
+    padding-top: 9%;
+    grid-column: span 1;
+    align-content: center;
+    text-align: center;
+}
+
+.footer {
+    grid-column: span 1;
+    align-content: center;
+    text-align: center;
+    margin: 10px;
+}
+
+button {
+    color: red;
+    width: 50px;
+    height: 20px;
+}

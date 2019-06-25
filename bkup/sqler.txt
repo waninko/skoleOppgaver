@@ -1,0 +1,24 @@
+SELECT d.id as department, ud.usr_id, u.id FROM hgoffline.usr_department ud
+INNER JOIN system.usr u
+ON us.usr_id = u.id
+INNER JOIN hgoffline.department d
+ON ud.department_id = d.id
+
+IKKE BRUK INNERJOIN!
+
+SELECT d.id as department, ud.usr_id, u.id
+FROM hgoffline.usr_department ud, system.usr u, hgoffline.department d
+WHERE ud.department_id = d.id AND  us.usr_id = u.id
+
+//SQL //
+/*   
+SQL JOIN FORSLAG 
+SELECT d.id as department, ud.usr_id, u.id
+FROM hgoffline.usr_department ud, system.usr u, hgoffline.department d
+WHERE ud.department_id = d.id AND  us.usr_id = u.id
+*/ 
+/*
+$DB->prepareAndExecute("SELECT name AS n , usr_id AS ui, application_id AS ai
+  FROM hgoffline.application ha, hgoffline.usr_department 
+  WHERE ha.id = 4 
+  "); */

@@ -1,0 +1,15 @@
+FEIL: TypeError: Cannot read property 'install' of undefined
+    at Function.Vue.use
+Appen kjører om jeg kommenterer ut vue.use(firestorePlugin) 
+	- men da sender den/mottar ikke data fra firestore
+LØSNING: Gå bort ifra vuefire og bruke vanelig firestore kobling
+
+Problem: Live oppdatere scoreliste etter sendt score
+LØSNING: Dette gikk automatisk med fireStore
+
+Problem: Scoreliste vises automatisk istedenfor å trykke på knapp
+LØSNING: Kjøre funksjonen under created hooken
+
+Oppgave: Lage progressbar rød/grønn for antall riktige VS antall spørsmål
+https://bootstrap-vue.js.org/docs/components/progress  <--- progress/successbar
+--Ferdig!

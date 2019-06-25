@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="update.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+<head>
+    <title>Oppdater Bruker</title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="header"> </div>
+
+        <div class="content">
+            <div id="update">
+                <form @submit.prevent="submit">
+                    <h3> Integrasjonskode: </h3>
+                    <input type="text" v-model="user.intcode">
+                    <h3> Bytt passord:</h3>
+                    <input type="password" v-model="user.password">
+                    <br>
+                    <button v-on:click="user"> Send </button>
+                </form>
+            </div>
+            <button href="user.html"> Back </button>
+        </div>
+        <div class="footer"> </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: '#update',
+        data() {
+            return {
+                user: {
+                    intcode: '',
+                    password: ''
+                }
+            }
+        },
+
+        methods: {
+            async submit(event) {
+                var inputvalue = {
+                    intcode: this.user.intcode,
+                    password: this.user.password
+                }
+
+                console.log(user)
+            }
+        },
+    })
+</script>
+
+</html>

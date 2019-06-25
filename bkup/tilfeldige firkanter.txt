@@ -1,0 +1,265 @@
+PROGRAM
+===================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TilfeldigeFirkanter
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var cell = new ScreenCell();
+            cell.AddLowerLeftCorner();
+            cell.AddVertical();
+
+            Console.WriteLine(cell.GetCharacter());
+            
+        }
+    }
+}
+
+
+
+SCREENCELL
+===============
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TilfeldigeFirkanter
+{
+    class ScreenCell
+    {
+        public bool Up { get; private set; }
+        public bool Down { get; private set; }
+        public bool Left { get; private set; }
+        public bool Right { get; private set; }
+
+        public char GetCharacter()
+        {
+            if (Up && Down && Left && Right) return '+';
+            if (Up && Down && Left && !Right) return '¦';
+            if (Up && Down && !Left && !Right) return '¦';
+            if (Up && Down && !Left && Right) return '+';
+
+            if (Up && !Down && Left && !Right) return '+';
+            if (Up && !Down && Left && Right) return '-';
+            if (Up && !Down && !Left && !Right) return '?';
+            if (Up && !Down && !Left && Right) return '+';
+
+            if (!Up && Down && Left && !Right) return '+';
+            if (!Up && Down && Left && Right) return '-';
+            if (!Up && Down && !Left && !Right) return '?';
+            if (!Up && Down && !Left && Right) return '+';
+
+            if (!Up && !Down && Left && !Right) return '?';
+            if (!Up && !Down && Left && Right) return '-';
+            if (!Up && !Down && !Left && !Right) return ' ';
+            if (!Up && !Down && !Left && Right) return '?';
+            
+            return ' ';
+        }
+
+        public void AddHorizontal()
+        {
+            Left = Right = true; 
+
+        }
+
+        public void AddVertical()
+        {
+            Up = Down = true;
+        }
+
+        public void AddLowerLeftCorner()
+        {
+            Up = Right = true;
+        }
+
+        public void AddUpperLeftCorner()
+        {
+            Down = Right = true;   
+        }
+
+        public void AddUpperRightCorner()
+        {
+            Down = Left = true;
+        }
+
+        public void AddLowerRightCorner()
+        {
+            Up = Left = true;
+        }
+    }
+
+    
+}
+
+
+
+
+BOX
+==========
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TilfeldigeFirkanter
+{
+    public class Box
+    {
+        public int X { get; private set; }
+        public int Y { get; private set; } 
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public int StartY => Y;
+        public int EndY => Y + Height;
+        private int _minimumSize = 3;
+
+        public  Box(Random random, int maxX, int maxY)
+        {
+            Width = random.Next(_minimumSize, maxY);
+            Height = random.Next(_minimumSize, maxX);
+
+            X = random.Next(1, maxX - Width);
+            Y = random.Next(1, maxY - Height);
+            
+        }
+
+        public Box(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+
+        public int GetTopRowY()
+        {
+            return Y;
+        }
+
+        public int GetBottomRowY()
+        {
+            return Y + Height;
+        }
+    }
+}
+
+
+
+VIRTUALSCREEN^
+=============
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TilfeldigeFirkanter
+{
+    public class VirtualScreen
+    {
+        private VirtualScreenRow[] _rows;
+
+        public VirtualScreen(int width, int height)
+        {
+            _rows = new VirtualScreenRow[height];
+            for (int i = 0; i < height; i++)
+            {
+                _rows[i] = new VirtualScreenRow(width, 1);
+            }
+        }
+
+        public void Add(Box box)
+        {
+            _rows[box.StartY].AddBoxTopRow(box.X, box.Width);
+            for (var i = box.StartY + 1; i < box.EndY; i++)
+            {
+                _rows[i].AddBoxMiddleRow(box.X, box.Width);
+            }
+        }
+
+        public void Show()
+        {
+            foreach(var screenRow in rows_)
+        }
+    }
+}
+
+
+
+
+
+VIRTUALSCREENROW
+================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TilfeldigeFirkanter
+{
+    public class VirtualScreenRow
+    {
+        private ScreenCell[] _cells;
+        private int _screenWidth;
+        private int _startX;
+
+        public VirtualScreenRow(int screenWidth, int startX)
+        {
+            _screenWidth = screenWidth;
+            _startX = startX;
+
+
+        }
+
+
+        public void AddBoxTopRow(int boxX, int boxWidth)
+        {
+            _cells[boxX].AddUpperLeftCorner();
+            for (var i = 1; i < boxWidth - 1; i++)
+            {
+                _cells[boxX + i].AddHorizontal();
+            }
+            _cells[boxX + boxWidth - 1].AddUpperRightCorner();
+
+        }
+
+
+        public void AddBoxBottomRow(int boxX, int boxWidth)
+        {
+            _cells[boxX].AddLowerLeftCorner(); 
+            for (var i = 1; i < boxWidth - 1; i++)
+            {
+                _cells[boxX + i].AddVertical();
+            }
+            _cells[boxX +boxWidth -1].AddLowerRightCorner();
+        }
+
+
+
+        public void AddBoxMiddleRow(int boxX, int boxWidth)
+        {
+            _cells[boxX].AddVertical();
+           
+            _cells[boxX + boxWidth -1].AddVertical();
+        }
+
+        public void Show()
+        {
+            
+        }
+    }
+}

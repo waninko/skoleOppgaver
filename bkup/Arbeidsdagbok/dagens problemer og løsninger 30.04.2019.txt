@@ -1,0 +1,10 @@
+Problem: Få modal til å poppe opp - ikke en knapp
+ --Løsning : hide QuestionBox når showScore==true.
+
+Problem: Lagre brukernavn og score i firebase
+
+Problem: Sende resultatet av "addScore" fra scoreBoard.vue til app.vue 
+for å sende til firebase
+-- Hadde kobla til som en realtimeDB til en firestore :|
+
+

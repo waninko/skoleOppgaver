@@ -1,0 +1,5 @@
+Problem: Scores blir lastet inn på nytt og under hverandre 
+når en ny score blir lagt til
+LØSNING: Bruke snapshot på innlasting og submitting
+
+

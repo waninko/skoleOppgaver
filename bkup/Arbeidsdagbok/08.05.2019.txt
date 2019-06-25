@@ -1,0 +1,23 @@
+
+OPPGAVE: Få på plasseringer i tillegg til navn+score
+LØSNING: legge til en <td> som tok imot index, velge index i tilleg til score i -for'en
+PROBLEM: Viser neste index selv om det ikke ligger en score i den.
+LØSNING: legge på en v-if i index <td>'en: v-if="score.userScore"
+
+
+OPPGAVE: Error-Progressbaren er halvparten så stor som Success baren.
+LØSNING: Sette :value til numCorrect istedenfor numTotal :|
+
+
+
+OPPGAVE: Tydliggjøre om man har svart rett eller feil
+LØSNING: Gjøre baren større?
+LØSNING: Annet format på text - større +& svart på gul :  class="text-secondary" på baren som skal ha annen clr
+	bold legges på i class på main bar div'en, flere classes i samme, skilles med space.
+
+OPPGAVE: Det ser helt villt ut på mobil. Få det responsivt.
+
+Gå over koden, rydde (fjerne console.log, ubrukt kode, formatering)- litt styling
+CORDOVA TID!
+
+Tilbake til vaskeapp og c#

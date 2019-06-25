@@ -1,0 +1,34 @@
+
+Problem: Se at svaret er riktig før scoreliste kommer opp
+LØSNING:Det synes på topbar uansett. 
+
+
+
+Oppgave: med timer - kjappere riktig svar - høyere score!
+Problem: Timer nuller ikke og starter på nytt etter spørsmål 2.
+	Den går ikke INN i startTimer igjen etter dette.
+Prøver å emitte startTimer tilbake til app.vue og kjøre den på next() -call child method
+
+LØSNING: Starte på nytt, med tunga rett i munnen. 
+Kjøre timerStart første gang på mounted,
+deretter sette en watcher på om spørsmålet endra seg og i såfall sette poeng,
+resette timer og starte den igjen.
+Legge inn next Question på samme knapp som submit, unngår problemet om å måtte stoppe timer for å lagre score
+
+
+
+OPPGAVE: Legge sammen TimePoints Og Score
+LØSNING: Emitta timescore til parent, og ut til scorelist - la sammen.
+
+
+OPPGAVE: Stoppe timer når man er på scorelist
+Stoppa å telle poeng om man slang på en if i app.vue :/
+LØSNING: Herregud- bare å legge til stopTimer på samme watchern jeg akkurat la til med emit :|
+
+OPPGAVE: Bare legge til timescore om svaret er riktig
+finn hvor isCorrect blir til hen - den triggrer ++ på numCorrect - kanskje bruke numCorrect?
+LØSNING: la inn en watcher på numCorrect, og triggrer timePoints() hver gang den endrer seg.
+
+
+OPPGAVE:FJERNE KNAPPER SOM IKKE TRENGS ++ en form for stil på timer + points
+LØSNING: ..tja..

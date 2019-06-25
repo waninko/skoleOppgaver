@@ -1,0 +1,15 @@
+Fikset "NaN%" bug på calculate score
+Kobla scoreBoard til app.vue
+Viser score når man har svart på så & så mange spørsmål
+Lagrer navn fra prompt og viser i modal
+
+Problem: Få modal til å poppe opp - ikke en knapp
+
+
+Problem: Lagre brukernavn og score i firebase
+
+
+Problem: Se at svaret er riktig før scoreliste kommer opp
+
+https://bootstrap-vue.js.org/docs/components/progress  <--- progress/successbar
+

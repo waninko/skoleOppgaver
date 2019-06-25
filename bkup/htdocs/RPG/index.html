@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>rpg-ish sak.</title>
+</head>
+<body>
+    <div id="currentState">Hei&Hå her er du nå!</div></br>
+    <div id="info">Du kan velge mellom å gå til høyre, eller til venstre</div></br>
+    <div id="img"></div>
+    <div id="dialog"></div></br>
+
+    <button  id="goLeft" onclick=goLeft()> Go LEFT </button>
+    <button  id="goRight" onclick=goRight()> Go RIGHT </button>
+    <!-- <button id="test" onclick=getEnemyDB()> Get enemy list </button> -->
+
+<!--et HIDDEN form som tar med seg nummeret som blir valgt til enemyID i value-->
+<form id="hiddenForm" name="hiddenForm" method="post" action="queries.php">
+    <input type="hidden" name="hiddenEnemyId" id="hiddenEnemyId" >
+</form>
+
+<script>
+    var currentState = document.getElementById("currentState");
+    var info = document.getElementById("info");
+    var dialog = document.getElementById("dialog");
+    
+
+    function goLeft(){
+        //Endre currentState, info og evt. dialog. Slår en getEncounter på vei inn
+        currentState.innerHTML = " Du gikk til venstre, ja?"
+        getEncounter();
+    
+    }
+
+    function goRight(){
+        //Endre currentState, info og evt. dialog. Slår en getEncounter på vei inn
+        currentState.innerHTML = " Du gikk til høyre, ja? Var det lurt?"
+        getEncounter();
+    }
+
+    function getEncounter(){
+        //en math.random sak, slår visse numbers for enemy encounter (begynner med 1-2 ja/eller nei - senere flere eller en?)
+        var encounter = Math.floor((Math.random() * 2) + 1); //denne slår enten 1 eller 2. 
+        //if 2 getEnemyType();
+        if (encounter === 2){
+            getEnemyType();
+        }
+    }
+
+   async function getEnemyType(){
+        //ny math.random som slår opp i en DB og matcher tall til enemy ID - print enemy name i infodiv "Du møtte en - !"
+        var enemyID = Math.floor((Math.random() * 5) + 1);
+        var id = parseInt(enemyID);
+
+      
+        //setter ID'en som velges i hiddenformen, kanskje dét funker med axios? :<
+      // var addHiddenEnemyId = hiddenForm.hiddenEnemyId.value = id;
+       //var hiddenEnemyId = hiddenForm.hiddenEnemyId.value;
+       //console.log(hiddenEnemyId);
+        var enemyObj = {
+                hiddenEnemyId : id
+        };
+    
+      
+        //sende inn id og få tilbake enemyType fra PHP som har vært innom DB og sjekka/matcha.
+        var params = new URLSearchParams();
+        params.append('hiddenEnemyId', hiddenEnemyId );
+
+        try{
+            const response = axios.post('./queries.php',{ hiddenEnemyId : enemyObj }, {
+          withCredentials: true });
+            console.log("Response.data:  " + response.data);
+          
+            
+            info.innerHTML ="You met an enemy with the ID: " + id + "<br>"
+                       + " and in the form of  " +response.data.enemyOutput + "<br>";
+
+        }            
+        catch(error){
+            info.innerHTML = "..her gikk det visst noe galt..." + error;
+        }
+        
+
+        
+       
+   
+};
+       
+    
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+Løst problem med connection string: hadde glemt "Configuration . "  
+foran "GetConnectionString".
+
+Løst problem med "invalid objectName" - lært at DBset må ha like navn som tables i DB.
+
+problem med int32 og int64 casting: -> bruke "long" istedenfor "int"
+
+
+problem med casting igjen: 'System.Byte[]' to type 'System.DateTime'. 
+system.Byte viser seg å være "timestamp" datatypen jeg har valgt i databasen- er ikke det samme som datetime.
+Drop column og laga ny med datetime typing.
+
+Får ut liste i både *api/vask og *api/person etter noen navneleifer i forhold til feltnavn i DB
+
+****************************///***************************************
+feil! Her var det null i vaskStart. Hvordan var det med å kunne motta null igjen.. ?
+får ut med hardkoda - men ikke om det er NULL
+**************************///*****************************************
+
+Fått til å velge etter ID, uten større problemer, merkelig nok!
+Og enda merkeligere! Etter leilighetsNR! :o
+
+Begynt på POST, trenger basic HTML inputs
+NOPE. POSTMAN.
+
+fikk til å legge til ny vask - MEN! ID'en fortsetter på 10002? 
+-> sikekrt fordi det er long, ikke int
+
+Litt problemer med update'n (PUT) -> blir bare 404 - virker som den ikke finner ID'en
+
+
+

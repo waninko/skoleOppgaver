@@ -1,0 +1,3 @@
+Cannot deserialize the current JSON array error i Postman
+  -viste seg å være tulleleif. hadde en "[" foran json obj jeg prøvde å sende. :|
+

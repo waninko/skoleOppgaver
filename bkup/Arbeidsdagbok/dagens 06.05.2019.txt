@@ -1,0 +1,18 @@
+Problem: Bare én med samme navn på lista 
+LØSNING: funksjon som tar inn parameter - mappe og bruke .find
+	Ikke stringify output!
+
+
+Problem: Vise kun top 10 i scorelista
+LØSNING: legge inn en .slice(0,10) på orderedScores
+
+Problem: score med 10 havner under de med 2
+LØSNING:_.orderBy med en anonym funkis i som gjør om til tall (?)
+
+
+Problem: Se at svaret er riktig før scoreliste kommer opp
+LØSNING:
+
+
+
+Oppgave: med timer - kjappere riktig svar - høyere score!

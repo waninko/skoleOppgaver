@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <link href="main.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+
+    <title>DEPARTMENT</title>
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="header">
+            <h2>HG</h2>
+        </div>
+
+        <div id="datapage">
+
+            <div id="showData">
+                <ul v-for="department in departments">
+                    <a v-on:click="showform(department)"> {{ department.name }}
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                </ul>
+            </div>
+            <div class="footer"> </div>
+        </div>
+    </div>
+
+
+    <script>
+        var datapage = new Vue({
+            el: '#datapage',
+            mounted: function () {
+                this.showData();
+            },
+            data() {
+                return {
+                    departments: {}
+                }
+            },
+
+            methods: {
+                async showData() {
+                    const response = await axios.get('main.php')
+                        .then(response => {
+                            this.departments = response.data
+                            console.log(showData);
+                        });
+                },
+                /* async selectApp(id) {
+                     this.selectedApp = this.departments.filter(a => a.id === id);
+                 },*/
+
+                showform: function (department) {
+                    alert(department.id);
+                    var selected_dep = department.id; //<-- ta med denne på et vis  -axios send?
+                   // const dep_response = await axios.post('user.php', selected_dep);
+                    window.location.replace('user.html');
+                },
+            }
+        });
+    </script>
+
+</body>
+
+</html>

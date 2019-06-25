@@ -1,0 +1,8 @@
+moving too fast
+lagging!
+change imgs - remove whites
+add floor/ground instead of multiple platforms
+
+implement .waw?
+
+more lvl's! :D

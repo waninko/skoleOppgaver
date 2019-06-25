@@ -1,0 +1,74 @@
+.body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 5px;
+    grid-template-rows: auto;
+}
+
+.header {
+    grid-column: span 1;
+    text-align: center;
+    margin-top: auto;
+    display: inline-block;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+h2 {
+    display: inline-block;
+}
+
+a {
+    margin-top: 7px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#datapage {
+    padding-top: 5px;
+    grid-column: span 1;
+    align-content: center;
+    text-align: center;
+}
+
+.footer {
+    grid-column: span 1;
+    align-content: center;
+    text-align: center;
+    margin: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 20px;
+}
+
+li {
+    list-style-position: inside;
+}
+
+
+/* Link style */
+a:link {
+    text-decoration: noen;
+    color: black;
+}
+
+a:visited {
+    text-decoration: noen;
+    color: black;
+}

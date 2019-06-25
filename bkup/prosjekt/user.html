@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="main.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+    <title>BRUKERE</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h2> Brukere </h2>
+        </div>
+
+        <div id="userpage">
+
+            <div id="showuser">
+                <ul v-for="user in users">
+                    <p> {{user.name}}
+                        <a v-on:click="showform(user)" class="far fa-edit"></a> <i class="far fa-trash-alt"></i> <i
+                            class="fas fa-redo"></i>
+                    </p>
+
+                </ul>
+            </div>
+            <!-- <form v-on:click="showform(user)">
+                <h3> Hei </h3>
+            </form> -->
+        </div>
+        <!-- Lage et form som har med update og gjøre -->
+        <div class="footer"> </div>
+
+    </div>
+    </div>
+
+    <script>
+        var userpage = new Vue({
+            el: '#userpage',
+            mounted: function () {
+                this.showuser();
+            },
+            data() {
+                return {
+                    users: {}
+                }
+            },
+            methods: {
+                async showuser() {
+                    const response = await axios.get('user.php')
+                        .then(response => {
+                            this.users = response.data
+                            console.log(response.data);
+                        })
+                },
+                showform: function (user) {
+                    alert(user.id);
+
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

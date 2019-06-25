@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <title>HG Offline </title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="header">
+            <img src="hg.png"> </div>
+
+        <div class="content">
+            <div id="login">
+                <form @submit.prevent="submit">
+                    <i class="fas fa-user icon"></i>
+                    <input id="name" type="text" v-model="user.username" placeholder="Brukernavn"> <br>
+                    <i class="fas fa-unlock icon"></i>
+                    <input type="password" v-model="user.password" placeholder="Passord"> <br>
+                    <button class="button"> Login </button>
+                    <p id="message">
+                </form>
+
+            </div>
+        </div>
+
+        <div class="footer"> </div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#login',
+            data() {
+                return {
+                    user: {
+                        name: '',
+                        password: '',
+                        visual: null
+                    },
+
+                }
+            },
+
+            //functions
+            methods: {
+                async submit(event) {
+
+
+                    // Retrieving data and converting to json
+                    var inputValues = {
+                        username: this.user.username,
+                        password: this.user.password
+                    }
+
+                    try {
+                        const response = await axios.post('login.php', inputValues);
+                        // console.log(response.data);
+                        var respons = response.data;
+                        this.user.visual = response.data.visual;
+
+                        // Aslak var her.... Ikke kødd.
+                        if (response.data.login) {
+                            console.log(response.data);
+                            window.location.replace(response.data.page);
+                        }
+
+                    } catch (error) {
+                        message.innnerHTML = "Feil passord og brukernavn" + error;
+                    }
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

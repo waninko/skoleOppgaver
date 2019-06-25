@@ -1,0 +1,2 @@
+spesifiser hvilke felt i hvilke "groups" som får style om tomme.
+samme med det gamle som "huskes" skal komme i rett felt (signin/signup)
