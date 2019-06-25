@@ -12,7 +12,7 @@ var mailOptions = {
   from: 'linn.tester.node@gmail.com',
   to: 'josefine.magnussen@hg-gruppen.no',
   subject: 'Prøver å sende mail med Node',
-  text: 'Schpanande om det funker!'
+  text: 'Spennende om det funker!'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
