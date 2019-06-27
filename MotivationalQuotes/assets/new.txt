@@ -1,0 +1,4 @@
+It’s not a bug. It’s an undocumented feature!
+A user interface is like a joke. If you have to explain it, it’s not that good.
+My code DOESN’T work, I have no idea why. My code WORKS, I have no idea why.
+Things aren’t always #000000 and #FFFFFF
